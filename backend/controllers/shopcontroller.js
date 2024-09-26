@@ -56,9 +56,6 @@ exports.loginshop = async (req, res) => {
         // Store shop details in the session
         req.session.shop = shop;
         console.log('Session created:', req.session.shop);
-
-        // Set the session cookie (remove secure: true for development)
-        res.cookie('sessionId', req.session.id, { httpOnly: true, secure: false, sameSite: 'None' });
         res.status(200).json({ msg: 'Login Successful' });
     } catch (err) {
         console.error(err.message);
@@ -68,10 +65,8 @@ exports.loginshop = async (req, res) => {
 
 
 exports.checkshopsession = (req, res) => {
-    console.log('Session object:', req.session); // Debugging session object
 
     if (req.session.shop) {
-        console.log('Session exists');
 
         const shop = req.session.shop;
 
@@ -94,7 +89,6 @@ exports.checkshopsession = (req, res) => {
 
         res.status(200).json({ msg: 'Shop session exists', shop: req.session.shop });
     } else {
-        console.log('No session found');
         res.status(400).json({ msg: "Session does not exist" });
     }
 };
@@ -159,20 +153,8 @@ exports.addground = async (req, res) => {
         }
 
         // Determine the file extension from the mimetype
-        let fileExtension = '';
-        if (image) {
-            // Map mimetype to file extension
-            const mimeToExt = {
-                'image/jpeg': 'jpeg',
-                'image/jpg': 'jpg',
-                'image/png': 'png',
-                'image/gif': 'gif',
-                'image/webp': 'webp'
-            };
-
-            fileExtension = mimeToExt[image.mimetype] || '';
-        }
-        const imagePath = `public/images/${shopId}-${groundname}.${fileExtension}`; // Fixed file path format
+        const fileExtension = image.originalname.split('.').pop();
+        const imagePath = `public/images/${shopId}${groundname}.${fileExtension}`; // Fixed file path format
 
         // Create a new ground object
         const newGround = {
@@ -250,7 +232,6 @@ exports.applyforverification = async (req, res) => {
 exports.loadVenues = async (req, res) => {
   try {
     // Fetch all shops with at least one verified sport ground
-    console.log('hi');
     const shopsWithVenues = await Shop.find({ 'availablesports.verify': true }).exec();
 
     // Create a response format for venues
@@ -343,33 +324,7 @@ exports.loadGround = async (req, res) => {
         res.status(500).json({ message: 'An error occurred while loading the ground.' });
     }
 };
-exports.checkgroundifthatdate = async (req, res) => {
-    try {
-      const { selectedDate, shopname, groundname } = req.body;
-      console.log('hi');
-      // Find the shop by name
-      const shop = await Shop.findOne({ shopname });
-      if (!shop) {
-        return res.status(404).json({ message: 'Shop not found' });
-      }
-      
-      // Check if the ground is booked on the selected date
-      const bookedground = await Booking.find({
-        shop: shop._id,
-        date: selectedDate, // Ensure the date format is the same on both sides
-        groundname: groundname,
-      });
-  
-      if (bookedground) {
-        return res.status(200).json({ message: 'Ground is already booked on this date.', bookedground });
-      } else {
-        return res.status(200).json({ message: 'No Ground Booked on this date.' });
-      }
-    } catch (err) {
-      console.error('Error in checkgroundifthatdate:', err);
-      res.status(500).json({ message: 'Server error occurred while checking the booking status.' });
-    }
-  };
+
 exports.bookground = async (req, res) => {
     const {  shopname, groundname, date, timeSlot,groundfee,platformfee, amountPaid } = req.body;
     console.log(shopname+ groundname+ date+ timeSlot+ amountPaid )
@@ -414,12 +369,69 @@ exports.todaybookings = async (req, res) => {
                 $gte: startOfToday,
                 $lt: endOfToday
             }
-        }).populate('user', 'name') // Adjust as needed
-          .populate('shop', 'name'); // Adjust as needed
+        }).populate('user') // Adjust as needed
+          .populate('shop'); // Adjust as needed
 
         res.status(200).json(bookings);
     } catch (error) {
         res.status(500).json({ message: 'Error fetching bookings', error });
     }
 };
-  
+exports.checkRevenue = async (req, res) => {
+    try {
+        // Fetch the shop with populated available sports
+        const shop = await Shop.findById(req.session.shop._id).populate('availablesports'); 
+        const bookings = await Booking.find({ shop: shop._id }).populate('shop');
+
+        const groundRevenueMap = {};
+        let totalRevenue = 0;
+
+        bookings.forEach((booking) => {
+            // Get the ground name from the booking
+            const groundName = booking.groundname;
+            const groundFee = booking.groundfee || 0; // Get ground fee or default to 0
+            console.log(groundFee);
+            totalRevenue += groundFee; // Increment total revenue
+
+            // Increment ground revenue in the map
+            if (groundRevenueMap[groundName]) {
+                groundRevenueMap[groundName].groundFee += groundFee; // Increment existing ground fee
+            } else {
+                // Initialize ground revenue entry
+                groundRevenueMap[groundName] = {
+                    groundName: groundName,
+                    groundFee: groundFee
+                };
+            }
+        });
+
+        console.log("Ground Revenue Map:", groundRevenueMap); // Log the revenue map
+
+        // Transform the revenue map into an array format for response
+        const groundRevenues = Object.values(groundRevenueMap);
+
+        res.json({
+            totalRevenue: totalRevenue,
+            groundRevenues: groundRevenues
+        });
+    } catch (error) {
+        console.error("Error fetching revenue data:", error);
+        res.status(500).json({ message: "Internal server error" });
+    }
+};
+exports.logout=async (req,res)=>{
+    if (req.session && req.session.shop) {
+        // Destroy the session
+        req.session.destroy(err => {
+            if (err) {
+                console.error('Session destruction error:', err);
+                return res.status(500).json({ message: 'Failed to log out' });
+            }
+            // Clear the cookie
+            return res.status(200).json({ message: 'Logged out successfully' });
+        });
+    } else {
+        return res.status(400).json({ message: 'No active session to log out from' });
+    }
+}
+

@@ -30,19 +30,15 @@ const TodayBooking = () => {
             <div className="tb-bookings">
                 {bookings.map((booking) => (
                     <div className="tb-booking-card" key={booking._id}>
+                        <h2>{booking.shop.shopname}</h2>
                         <h2 className="tb-ground-name">{booking.groundname}</h2>
+                        <h2>{booking.user.username}</h2>
                         <p className="tb-date">Date: {new Date(booking.date).toLocaleDateString()}</p>
                         <p className="tb-time-slot">
                             Time Slot: {booking.timeSlot.start} - {booking.timeSlot.end}
                         </p>
-                        <p className="tb-amount-paid">Amount Paid: ${booking.amountPaid}</p>
                         <p className="tb-status">Status: {booking.status}</p>
-                        {booking.feedback && (
-                            <div className="tb-feedback">
-                                <p className="tb-rating">Rating: {booking.feedback.rating}</p>
-                                <p className="tb-comment">Comment: {booking.feedback.comment}</p>
-                            </div>
-                        )}
+
                     </div>
                 ))}
             </div>

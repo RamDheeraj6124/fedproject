@@ -9,4 +9,6 @@ router.post('/deleteuser',Admincontroller.admindeleteuser)
 router.post('/fixpercentage',Admincontroller.fixpercentage)
 router.get('/getpercentage',Admincontroller.getpercentage)
 router.get('/checkrevenue',Admincontroller.checkRevenue)
+router.get('/getallbookings',Admincontroller.getallbookings)
+router.post('/logout',Admincontroller.logout)
 module.exports = router;

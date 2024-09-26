@@ -1,10 +1,6 @@
 const mongoose = require('mongoose');
 
 const shopsportSchema = new mongoose.Schema({
-    sport: {
-        type: mongoose.Schema.Types.ObjectId, 
-        ref: 'Sport', 
-    }, 
     groundname: { 
         type: String, 
         required: true, 

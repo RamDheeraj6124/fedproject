@@ -143,3 +143,10 @@ body {
     background-color: #ecf0f1; /* Light background for the entire page */
 }
 
+.sd-pie-chart {
+    margin-top: 20px;
+    max-width: 600px; /* Set a max width for the pie chart */
+    margin-left: auto;
+    margin-right: auto; /* Center the chart */
+}
+

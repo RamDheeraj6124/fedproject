@@ -12,9 +12,11 @@
 }
 
 .tb-bookings {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Adjusts based on screen size */
+    gap: 20px; /* Space between cards */
+    justify-items: center; /* Centers the cards horizontally */
+    align-items: start; /* Aligns cards vertically */
 }
 
 .tb-booking-card {
@@ -24,6 +26,8 @@
     padding: 15px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s;
+    width: 100%; /* Ensures cards take up full width of grid cell */
+    max-width: 300px; /* Maximum width of each card */
 }
 
 .tb-booking-card:hover {

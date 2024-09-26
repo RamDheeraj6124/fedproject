@@ -4,29 +4,28 @@ import './Header.css';
 
 const Header = () => {
     const [username, setUsername] = useState(null);
+    const [dropdownOpen, setDropdownOpen] = useState(false);
     const navigate = useNavigate();
-    const hasCheckedSessions = useRef(false); // Ref to track if sessions have been checked
+    const hasCheckedSessions = useRef(false);
 
     useEffect(() => {
         const checkSessions = async () => {
-            if (hasCheckedSessions.current) return; // Skip if already checked
+            if (hasCheckedSessions.current) return;
 
-            hasCheckedSessions.current = true; // Mark as checked
+            hasCheckedSessions.current = true;
 
             try {
-                // Check user session
                 const userResponse = await fetch('http://localhost:5000/user/checksession', {
                     credentials: 'include'
                 });
 
                 if (userResponse.ok) {
                     const userData = await userResponse.json();
-                    setUsername(userData.username);
+                    setUsername(userData.user.username);
                 } else {
                     setUsername(null);
                 }
 
-                // Check shop session
                 const shopResponse = await fetch('http://localhost:5000/shop/checkshopsession', {
                     credentials: 'include'
                 });
@@ -40,7 +39,17 @@ const Header = () => {
         };
 
         checkSessions();
-    }, [navigate]); // Add 'navigate' to the dependency array
+    }, [navigate]);
+
+    const handleLogout = async () => {
+        await fetch('http://localhost:5000/user/logout', { credentials: 'include', method: 'POST' });
+        setUsername(null);
+        navigate('/');
+    };
+
+    const toggleDropdown = () => {
+        setDropdownOpen((prev) => !prev); // Toggle dropdown visibility
+    };
 
     return (
         <header>
@@ -56,7 +65,15 @@ const Header = () => {
                 </ul>
                 <div className="auth">
                     {username ? (
-                        <span>{username}</span>
+                        <div className="username">
+                            <span onClick={toggleDropdown} className='h-user'>{username}</span> {/* Click to toggle dropdown */}
+                            {dropdownOpen && (
+                                <div className="dropdown">
+                                    <button onClick={() => navigate('/userdashboard')}>Go to Dashboard</button>
+                                    <button onClick={handleLogout}>Logout</button>
+                                </div>
+                            )}
+                        </div>
                     ) : (
                         <a href="./login">Login/Sign Up</a>
                     )}

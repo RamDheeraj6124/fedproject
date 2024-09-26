@@ -85,12 +85,16 @@ function Dashboard() {
       console.log("Error:", err);
     }
   };
+  const logout = async () => {
+    await fetch('http://localhost:5000/admin/logout', { credentials: 'include', method: 'POST' });
+    navigate('/');
+};
 
   return (
     <div className="dashboard3">
       <header className="upperbar">
         <h1>Boxplay Admin Panel</h1>
-        <span className="logout" onClick={() => alert("Logged out")}>
+        <span className="logout" onClick={logout}>
           <i className="fas fa-sign-out-alt"></i> Logout
         </span>
       </header>
@@ -136,6 +140,7 @@ function Dashboard() {
           <Link to='VerifyUsers'><li>Verify Users</li></Link>
           <Link to='ManageShops'><li>Manage Shops</li></Link>
           <Link to='Revenuecheck'><li>Check Revenue</li></Link>
+          <Link to='BookingList'><li>All Bookings</li></Link>
         </ul>
       </nav>
 

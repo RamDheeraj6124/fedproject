@@ -26,6 +26,8 @@ import Forgotpassword from './components/Forgotpassword';
 import Loginwithotp from './components/Loginwithotp';
 import Updateotp from './components/Updateotp';
 import Revenuecheck from './Admin/Revenuecheck';
+import BookingsList from './Admin/BookingList';
+import UserDashboard from './Home/User/UserDashboard';
 
 function App() {
   return (
@@ -52,11 +54,14 @@ function App() {
           <Route path='/forgotpassword' element={<Forgotpassword />} />
           <Route path='/loginwithotp' element={<Loginwithotp />} />
           <Route path='/updatewithotp' element={<Updateotp />} />
+          <Route path='/userdashboard' element={<UserDashboard />}/>
           <Route path='/admindashboard' element={<Dashboard />} >
                  <Route path='ManageUsers' element={<UserMode />}/>
                  <Route path='VerifyUsers' element={<VerifyShopMode />}/>
                  <Route path='ManageShops' element={<ShopMode />}/>
                  <Route path='Revenuecheck' element={<Revenuecheck />}/>
+                 <Route path='BookingList' element={<BookingsList />}/>
+
          </Route>
         </Routes>
       </div>

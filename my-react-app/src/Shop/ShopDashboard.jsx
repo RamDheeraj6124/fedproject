@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './ShopDashboard.css';
+import { Pie } from "react-chartjs-2"; 
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'; 
 import { useNavigate } from 'react-router-dom';
+ChartJS.register(ArcElement, Tooltip, Legend);
 
 const ShopDashboard = () => {
   const effectRan = useRef(false);
@@ -10,37 +13,55 @@ const ShopDashboard = () => {
   const [timesArray, setTimesArray] = useState([]);
   const [grounds, setGrounds] = useState([]);
   const [groundImages, setGroundImages] = useState([]); // Store base64 images
+  const [groundRevenue, setGroundRevenue] = useState([]);
+  const [totalRevenue, setTotalRevenue] = useState(0);
   const navigate = useNavigate();
 
   useEffect(() => {
     if (effectRan.current === false) {
-      const checkShopSession = async () => {
-        try {
-          const response = await fetch('http://localhost:5000/shop/checkshopsession', {
-            credentials: 'include'
-          });
-          if (!response.ok) {
-            navigate('/shoplogin');
-          } else {
-            const data = await response.json();
-            console.log('Shop Data:', data);
-            setState(data.shop);
-            setGrounds(data.shop.availablesports || []);
-            setGroundImages(data.images || []); // Set the base64 images
-          }
-        } catch (error) {
-          console.error('Error fetching shop session:', error);
-          alert('An error occurred while fetching shop session.');
-        }
-      };
+        const checkShopSession = async () => {
+            try {
+                const response = await fetch('http://localhost:5000/shop/checkshopsession', {
+                    credentials: 'include'
+                });
 
-      checkShopSession();
-      effectRan.current = true;
+                if (!response.ok) {
+                    navigate('/shoplogin');
+                } else {
+                    const data = await response.json();
+                    console.log('Shop Data:', data);
+                    setState(data.shop);
+                    setGrounds(data.shop.availablesports || []);
+                    setGroundImages(data.images || []); // Set the base64 images
+                }
+
+                const revenueresponse = await fetch('http://localhost:5000/shop/checkrevenue', {
+                    method: 'GET',
+                    credentials: 'include'
+                });
+
+                if (revenueresponse.ok) {
+                    const revenueData = await revenueresponse.json(); // Correct variable used
+                    console.log(revenueData); 
+                    setTotalRevenue(revenueData.totalRevenue);
+                    setGroundRevenue(revenueData.groundRevenues);
+                } else {
+                    throw new Error("Expected JSON, but received: ");
+                }
+            } catch (error) {
+                console.error('Error fetching shop session:', error);
+                alert('An error occurred while fetching shop session.');
+            }
+        };
+
+        checkShopSession();
+        effectRan.current = true;
     }
     return () => {
-      effectRan.current = true; // Cleanup
+        effectRan.current = false; // Cleanup
     };
-  }, [navigate]);
+}, [navigate]);
+
 
   const updatesubmit = async (e) => {
     e.preventDefault();
@@ -185,6 +206,18 @@ const ShopDashboard = () => {
       alert('An error occurred while applying for verification.');
     }
   };
+  const chartData = {
+    labels: groundRevenue.map((sport) => sport.groundName),
+    datasets: [{
+        label: 'Ground Revenue',
+        data: groundRevenue.map((sport) => sport.groundFee),
+        backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40'],
+    }],
+};
+const shoplogout = async () => {
+  await fetch('http://localhost:5000/shop/logout', { credentials: 'include', method: 'POST' });
+  navigate('/');
+};
   
 
   return (
@@ -193,6 +226,9 @@ const ShopDashboard = () => {
       <div className='shophigh'>
       <h3 className="sd-email">Email: {state.email}</h3>
       <h3 className="sd-owner">Owner Name: {state.owner}</h3>
+      <span className="logout" onClick={shoplogout}>
+          <i className="fas fa-sign-out-alt"></i> Logout
+        </span>
       </div>
 
       <form className="sd-update-form" onSubmit={updatesubmit}>
@@ -302,6 +338,10 @@ const ShopDashboard = () => {
 
         <button className="sd-button" type="submit">Add Ground</button>
       </form>
+      <div className="sd-pie-chart">
+        <h1>Shop's Revenue</h1>
+                <Pie data={chartData} />
+            </div>
 
       <ul className="sd-grounds-list">
         {grounds.map((ground, index) => (

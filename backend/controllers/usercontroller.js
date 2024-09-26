@@ -1,6 +1,7 @@
 const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 const nodemailer = require('nodemailer');
+const Booking=require('../models/Booking');
 
 
 // Set up nodemailer
@@ -162,8 +163,6 @@ exports.login = async (req, res) => {
         req.session.user = userfound; // Storing user in the session
         console.log('Session created:', req.session.user);
 
-        // Set the session cookie (remove secure: true for development)
-        res.cookie('sessionId', req.session.id, { httpOnly: true, secure: false, sameSite: 'None' });
         res.status(200).json({ msg: 'Login Successful',role:userfound.role });
     } catch (err) {
         console.error(err.message);
@@ -173,12 +172,56 @@ exports.login = async (req, res) => {
 
 // Check Session Controller
 exports.checksession = (req, res) => {
-    console.log('Session object:', req.session); // Debugging session object
     if (req.session.user) {
-        console.log('Session exists');
-        res.status(200).json({ username: req.session.user.username });
+        const user=req.session.user;
+        res.status(200).json({user});
     } else {
-        console.log('No session found');
         res.status(400).json({ msg: "Session does not exist" });
     }
 };
+exports.userbookings=async (req,res)=>{
+    const user = req.session.user;
+    try{
+        const bookings=await Booking.find({user:user._id});
+        res.status(200).json({bookings});
+    }catch(err){
+        console.error(err.message);
+    }
+};
+// Update user contact
+exports.updatecontact = async (req, res) => {
+    const { contact } = req.body;
+    const userId = req.session.user._id;
+
+    if (!contact) {
+        return res.status(400).json({ message: 'Contact is required' });
+    }
+
+    try {
+        // Update the user's contact
+        const updatedUser = await User.findByIdAndUpdate(userId, { contact }, { new: true });
+        req.session.user = updatedUser; // Update session with new contact
+
+        res.status(200).json(updatedUser);
+    } catch (err) {
+        console.error('Error updating contact:', err.message);
+        res.status(500).json({ message: 'Failed to update contact' });
+    }
+};
+exports.logout=async (req,res)=>{
+    if (req.session && req.session.user) {
+        // Destroy the session
+        req.session.destroy(err => {
+            if (err) {
+                console.error('Session destruction error:', err);
+                return res.status(500).json({ message: 'Failed to log out' });
+            }
+            // Clear the cookie
+            res.clearCookie('connect.sid'); // Adjust the cookie name if it's different
+            return res.status(200).json({ message: 'Logged out successfully' });
+        });
+    } else {
+        return res.status(400).json({ message: 'No active session to log out from' });
+    }
+}
+

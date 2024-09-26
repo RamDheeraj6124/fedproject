@@ -1,0 +1,141 @@
+/* General styling */
+.ud-container {
+    padding: 20px;
+    background-color: lightgreen;
+    min-height: 100vh;
+    min-width: 100vw;
+    font-family: Arial, sans-serif;
+}
+
+.ud-title {
+    text-align: center;
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: darkgreen;
+    font-weight: bold;
+}
+
+/* User info section */
+.ud-user-info {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.ud-email, .ud-contact p {
+    font-size: 18px;
+    margin: 10px 0;
+    color: #333;
+}
+
+/* Contact form */
+.ud-contact-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.ud-contact-input {
+    width: 300px;
+    padding: 8px;
+    font-size: 16px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.ud-error {
+    color: red;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.ud-save-contact-btn,
+.ud-cancel-btn {
+    padding: 8px 12px;
+    background-color: darkgreen;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 10px;
+    transition: background-color 0.2s;
+}
+
+.ud-save-contact-btn:hover,
+.ud-cancel-btn:hover {
+    background-color: green;
+}
+
+.ud-cancel-btn {
+    background-color: #c0392b;
+}
+
+.ud-add-contact-btn {
+    padding: 8px 12px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.ud-add-contact-btn:hover {
+    background-color: #2980b9;
+}
+
+/* Bookings */
+.ud-bookings-title {
+    font-size: 24px;
+    color: darkgreen;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.ud-bookings {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.ud-booking-card {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+}
+
+.ud-booking-card:hover {
+    transform: scale(1.02);
+}
+
+.ud-ground-name {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.ud-date,
+.ud-time-slot,
+.ud-amount-paid,
+.ud-status {
+    font-size: 16px;
+    margin: 5px 0;
+}
+
+.ud-feedback {
+    margin-top: 10px;
+    border-top: 1px solid #ccc;
+    padding-top: 10px;
+}
+
+.ud-rating,
+.ud-comment {
+    font-size: 14px;
+}

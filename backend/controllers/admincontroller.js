@@ -189,3 +189,50 @@ exports.checkRevenue = async (req, res) => {
         res.status(500).json({ message: "Internal server error" });
     }
 };
+exports.getallbookings = async (req, res) => {
+    try {
+        const today = new Date();
+        const startOfDay = new Date(today.setHours(0, 0, 0, 0));
+        const endOfDay = new Date(today.setHours(23, 59, 59, 999));
+
+        // Fetch future bookings
+        const futureBookings = await Booking.find({ date: { $gt: endOfDay } }).populate('user shop');
+
+        // Fetch today's bookings
+        const todaysBookings = await Booking.find({
+            date: { $gte: startOfDay, $lte: endOfDay }
+        }).populate('user shop');
+
+        // Fetch past bookings
+        const pastBookings = await Booking.find({ date: { $lt: startOfDay } }).populate('user shop');
+
+        res.status(200).json({
+            success: true,
+            futureBookings,
+            todaysBookings,
+            pastBookings
+        });
+    } catch (err) {
+        res.status(500).json({
+            success: false,
+            message: 'Error fetching bookings',
+            error: err.message
+        });
+    }
+};
+exports.logout=async (req,res)=>{
+    if (req.session && req.session.user.role=='admin') {
+        // Destroy the session
+        req.session.destroy(err => {
+            if (err) {
+                console.error('Session destruction error:', err);
+                return res.status(500).json({ message: 'Failed to log out' });
+            }
+            // Clear the cookie
+            return res.status(200).json({ message: 'Logged out successfully' });
+        });
+    } else {
+        return res.status(400).json({ message: 'No active session to log out from' });
+    }
+}
+

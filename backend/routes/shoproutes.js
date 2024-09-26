@@ -29,8 +29,9 @@ router.post('/updateshop',shopController.updateshop)
 router.post('/addground',upload.single('image'),shopController.addground)
 router.get('/loadvenues',shopController.loadVenues)
 router.post('/loadground',shopController.loadGround);
-router.post('/checkgroundifthatdate',shopController.checkgroundifthatdate)
 router.post('/bookground',shopController.bookground)
 router.get('/todaybookings',shopController.todaybookings)
 router.post('/applyforverification',shopController.applyforverification)
+router.get('/checkrevenue',shopController.checkRevenue)
+router.post('/logout',shopController.logout)
 module.exports = router;
