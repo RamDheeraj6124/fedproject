@@ -7,15 +7,17 @@ const UserDashboard = () => {
     const [user, setUser] = useState(null);
     const [userBookings, setUserBookings] = useState([]);
     const [contact, setContact] = useState('');
+    const [email, setEmail] = useState('');
     const [editingContact, setEditingContact] = useState(false);
     const [error, setError] = useState(''); // For form validation
     const [showRatingModal, setShowRatingModal] = useState(false);
-    const [currentBooking, setCurrentBooking] = useState(null);
     const [rating, setRating] = useState(0);
     const [review, setReview] = useState('');
+    const [currentBooking, setCurrentBooking] = useState(null);
     const navigate = useNavigate();
 
     useEffect(() => {
+
         const checkSessions = async () => {
             try {
                 // Fetch user session
@@ -79,18 +81,16 @@ const UserDashboard = () => {
             console.error('Error updating contact:', err);
         }
     };
-
     const handleOpenRatingModal = (booking) => {
         setCurrentBooking(booking);
         setShowRatingModal(true);
     };
-
     const handleSubmitRating = async () => {
         if (!rating || rating < 1 || rating > 5) {
             alert('Please select a rating between 1 and 5.');
             return;
         }
-
+        console.log('hi rating')
         try {
             const response = await fetch('http://localhost:5000/user/submitfeedback', {
                 method: 'POST',
@@ -171,18 +171,19 @@ const UserDashboard = () => {
                                 <div className="userfeedback">
                                     <button onClick={() => handleOpenRatingModal(booking)}>Give Rating</button>
                                 </div>
-                            )}
+                            )} 
                             {booking.feedback && booking.feedback.rating && (
                                 <div className="ud-feedback">
                                     <p className="ud-rating">Rating: {booking.feedback.rating}/5</p>
                                     <p className="ud-comment">Comment: {booking.feedback.comment}</p>
                                 </div>
-                            )}
+                            )}                           
                         </div>
+                        
                     ))
+                    
                 )}
             </div>
-
             {showRatingModal && (
                 <div className="ud-rating-modal">
                     <div className="ud-modal-content">

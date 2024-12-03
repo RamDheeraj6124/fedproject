@@ -225,3 +225,27 @@ exports.logout=async (req,res)=>{
     }
 }
 
+exports.submitfeedback = async (req, res) => {
+    const { bookingId, rating, review } = req.body;
+    console.log(req.body)
+    try {
+        const booking = await Booking.findById(bookingId);
+        if (!booking) {
+            return res.status(404).json({ error: 'Booking not found' });
+        }
+
+        // Update feedback fields
+        booking.feedback = {
+            rating,
+            review,
+            feedbackDate: new Date()
+        };
+
+        await booking.save();
+        console.log(booking);
+        res.status(200).json({ message: 'Feedback submitted successfully', booking });
+    } catch (err) {
+        console.error('Error submitting feedback:', err);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+};
