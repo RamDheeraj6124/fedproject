@@ -29,7 +29,7 @@ const articles = [
     category: "Basketball",
     comments: 4,
     description: "Basketball is a fast-paced, action-packed game that requires skill, agility, and strategy. From the dimensions of the court to the high-flying dunks, get the inside scoop on what makes basketball so thrilling...",
-    link: "/articles/basketball-high-flying-action"
+    link: "/Learnbasketball"
   },
   {
     title: "Tennis: The Ultimate Showdown of Skill and Speed",
@@ -38,7 +38,7 @@ const articles = [
     category: "Tennis",
     comments: 3,
     description: "Tennis is a sport of precision, power, and endurance. Whether you're playing on grass, clay, or hard courts, knowing the rules and layout of the tennis court can give you the edge you need to dominate your matches...",
-    link: "/articles/tennis-ultimate-showdown"
+    link: "/LearnTennis"
   },
   {
     title: "Badminton: Fast-Paced Fun with Every Smash",
@@ -47,7 +47,7 @@ const articles = [
     category: "Badminton",
     comments: 1,
     description: "Badminton is a game of quick reflexes and strategic play. Whether you're smashing or dropping, every shot counts. Get familiar with the court dimensions and rules that make badminton a game of skill and excitement...",
-    link: "/articles/badminton-fast-paced-fun"
+    link: "/LearnBadminton"
   },
   {
     title: "Volleyball: Teamwork and Strategy on the Sand or Court",
@@ -56,7 +56,7 @@ const articles = [
     category: "Volleyball",
     comments: 6,
     description: "Volleyball is all about teamwork, precision, and communication. Whether you're playing on the beach or an indoor court, the layout and dimensions of the playing area can affect your strategy. Learn more about the sport's unique challenges...",
-    link: "/articles/volleyball-teamwork-strategy"
+    link: "/Learnvolleyball"
   },
   {
     title: "Baseball: The Classic American Pastime",
@@ -65,7 +65,7 @@ const articles = [
     category: "Baseball",
     comments: 9,
     description: "Baseball is known for its rich history and iconic moments. From home runs to strikeouts, the layout of the diamond and the rules of the game are essential for understanding how to play. Explore the dimensions of the field and more...",
-    link: "/articles/baseball-classic-american-pastime"
+    link: "/LearnBaseball"
   },
   {
     title: "Hockey: Ice Cold and Full of Action",
@@ -74,7 +74,7 @@ const articles = [
     category: "Hockey",
     comments: 3,
     description: "Hockey is a fast, aggressive, and thrilling sport. Played on an ice rink, the game requires speed, skill, and strategy. Learn more about the rink dimensions and rules that make hockey one of the most intense sports out there...",
-    link: "/articles/hockey-ice-cold-action"
+    link: "/LearnHockey"
   },
   // Add more articles as needed
 ];
@@ -96,7 +96,11 @@ const ArticleCard = () => {
     <div className="article-card-container2">
       <Header />
       <div className="article-card-container">
-        <h2 className="venue-heading"> Learn Your Favorite Sport! </h2>
+        <div className='black-background'>
+        <h2 className="venue-heading"> 
+            Learn Your Favorite Sport!
+        </h2>
+        </div>
         <div className="article-card">
           <button className="prev-btn" onClick={handlePrev}>&lt;</button>
           <div className="article-content">

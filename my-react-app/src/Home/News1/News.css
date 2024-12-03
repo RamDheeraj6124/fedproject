@@ -1,0 +1,25 @@
+.news-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    overflow-x: scroll;
+    padding: 10px;
+    scroll-behavior: smooth;
+    scrollbar-width: thin;
+    scrollbar-color: black #fff;
+    background-color: lightgreen;
+}
+
+.single-row {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto; /* Allows horizontal scrolling if needed */
+    background-color: lightgreen;
+    height: 110%;
+    margin-left: 350px;
+}
+
+.col {
+    flex: 1 0 16.66%; /* Each item will take up approximately 1/6 of the row */
+    padding: 10px;
+}

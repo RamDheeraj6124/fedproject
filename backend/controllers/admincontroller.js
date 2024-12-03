@@ -2,6 +2,7 @@ const express = require('express');
 const User = require('../models/User');
 const Shop = require('../models/Shop');
 const Booking=require('../models/Booking');
+const Sport=require('../models/Sport');
 
 const displaydetails = async () => {
     let users = [];
@@ -220,6 +221,49 @@ exports.getallbookings = async (req, res) => {
         });
     }
 };
+exports.getsportslist=async (req,res)=>{
+   try{
+     const sportslist=await Sport.find();
+     console.log('hi Sport list')
+     if(sportslist){
+        res.status(200).json({success:true,sportslist});
+     }else{
+        res.status(404).json({success:false,message:'No sports found'});
+     }
+    } catch(err){
+        console.log(err)
+    }
+}
+exports.addsport = async (req, res) => {
+    console.log('hi add to sport');
+    try {
+      const { sportName, equipmentRequired, rules } = req.body;
+      console.log(sportName, equipmentRequired, rules);  // Debugging log
+
+      // Check if all required fields are provided 
+      if (!sportName || !equipmentRequired || !rules) {
+        return res.status(400).json({ message: 'All fields are required.' });
+      }
+
+      // Create a new sport instance using the extracted data
+      const newSport = new Sport({
+        name: sportName,
+        equipmentRequired,  // Now an array
+        rules  // Now an array
+      });
+
+      // Save the new sport to the database
+      await newSport.save();
+
+      // Return a success response
+      return res.status(201).json({ message: 'Sport added successfully', sport: newSport });
+    } catch (err) {
+      console.error(err);
+      return res.status(500).json({ message: 'Server error. Failed to add sport.' });
+    }
+};
+
+  
 exports.logout=async (req,res)=>{
     if (req.session && req.session.user.role=='admin') {
         // Destroy the session

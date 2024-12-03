@@ -7,9 +7,12 @@ const UserDashboard = () => {
     const [user, setUser] = useState(null);
     const [userBookings, setUserBookings] = useState([]);
     const [contact, setContact] = useState('');
-    const [email, setEmail] = useState('');
     const [editingContact, setEditingContact] = useState(false);
     const [error, setError] = useState(''); // For form validation
+    const [showRatingModal, setShowRatingModal] = useState(false);
+    const [currentBooking, setCurrentBooking] = useState(null);
+    const [rating, setRating] = useState(0);
+    const [review, setReview] = useState('');
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -77,6 +80,47 @@ const UserDashboard = () => {
         }
     };
 
+    const handleOpenRatingModal = (booking) => {
+        setCurrentBooking(booking);
+        setShowRatingModal(true);
+    };
+
+    const handleSubmitRating = async () => {
+        if (!rating || rating < 1 || rating > 5) {
+            alert('Please select a rating between 1 and 5.');
+            return;
+        }
+
+        try {
+            const response = await fetch('http://localhost:5000/user/submitfeedback', {
+                method: 'POST',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    bookingId: currentBooking._id,
+                    rating,
+                    review,
+                }),
+            });
+
+            if (response.ok) {
+                const updatedBooking = await response.json();
+                setUserBookings((prevBookings) =>
+                    prevBookings.map((booking) =>
+                        booking._id === updatedBooking._id ? updatedBooking : booking
+                    )
+                );
+                setShowRatingModal(false);
+                setRating(0);
+                setReview('');
+            }
+        } catch (error) {
+            console.error('Error submitting feedback:', error);
+        }
+    };
+
     return (
         <div className="ud-container">
             <Header />
@@ -123,6 +167,11 @@ const UserDashboard = () => {
                             <p className="ud-time-slot">Time Slot: {booking.timeSlot.start} - {booking.timeSlot.end}</p>
                             <p className="ud-amount-paid">Amount Paid: ${booking.amountPaid}</p>
                             <p className="ud-status">Status: {booking.status}</p>
+                            {!booking.feedback && (
+                                <div className="userfeedback">
+                                    <button onClick={() => handleOpenRatingModal(booking)}>Give Rating</button>
+                                </div>
+                            )}
                             {booking.feedback && booking.feedback.rating && (
                                 <div className="ud-feedback">
                                     <p className="ud-rating">Rating: {booking.feedback.rating}/5</p>
@@ -133,6 +182,31 @@ const UserDashboard = () => {
                     ))
                 )}
             </div>
+
+            {showRatingModal && (
+                <div className="ud-rating-modal">
+                    <div className="ud-modal-content">
+                        <button className="ud-close-modal" onClick={() => setShowRatingModal(false)}>X</button>
+                        <h3>Rate & Review</h3>
+                        <label>Rating:</label>
+                        <select value={rating} onChange={(e) => setRating(Number(e.target.value))}>
+                            <option value="">Select Rating</option>
+                            {[1, 2, 3, 4, 5].map((star) => (
+                                <option key={star} value={star}>
+                                    {star} Star{star > 1 ? 's' : ''}
+                                </option>
+                            ))}
+                        </select>
+                        <label>Review:</label>
+                        <textarea
+                            value={review}
+                            onChange={(e) => setReview(e.target.value)}
+                            placeholder="Write your review here"
+                        />
+                        <button onClick={handleSubmitRating}>Submit</button>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

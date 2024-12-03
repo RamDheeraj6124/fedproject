@@ -10,6 +10,10 @@ const userSchema = new mongoose.Schema({
         required: true,
         unique: true,
     },
+    emailveified:{
+        type:Boolean,
+        default:false
+    },
     otp: {
         type: String
     },

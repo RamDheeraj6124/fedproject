@@ -61,7 +61,7 @@ const Header = () => {
                     <li><a href="/play">Play</a></li>
                     <li><a href="/Book">Book</a></li>
                     <li><a href="/Learn">Learn</a></li>
-                    <li><a href="#">News</a></li>
+                    <li><a href="/News">News</a></li>
                 </ul>
                 <div className="auth">
                     {username ? (

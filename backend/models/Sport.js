@@ -11,9 +11,9 @@ const sportSchema = new mongoose.Schema({
     equipmentRequired: [{ 
         type: String
     }],
-    rules: { 
+    rules: [{ 
         type: String
-    }
+    }]
 });
 
 module.exports = mongoose.model('Sport', sportSchema);

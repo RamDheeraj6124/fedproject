@@ -12,10 +12,38 @@ const ShopDashboard = () => {
   const [daysArray, setDaysArray] = useState([]);
   const [timesArray, setTimesArray] = useState([]);
   const [grounds, setGrounds] = useState([]);
-  const [groundImages, setGroundImages] = useState([]); // Store base64 images
+  const [groundImages, setGroundImages] = useState([]);
   const [groundRevenue, setGroundRevenue] = useState([]);
   const [totalRevenue, setTotalRevenue] = useState(0);
   const navigate = useNavigate();
+  const [sportlist, getSportsList] = useState([]);
+  const effectRan1 = useRef(false);
+
+  useEffect(() => {
+    const getSports = async () => { 
+      try { 
+        const res = await fetch("http://localhost:5000/admin/getsportslist", { 
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        const data = await res.json();
+        getSportsList(data.sportslist);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    if (!effectRan.current) {
+      getSports();
+      effectRan1.current = true;
+    }
+
+    return () => {
+      effectRan1.current = true; // Cleanup
+    };
+  }, []);
 
   useEffect(() => {
     if (effectRan.current === false) {
@@ -257,9 +285,16 @@ const shoplogout = async () => {
 
       <form className="sd-add-ground-form" onSubmit={addGround}>
         <h2 className="sd-subtitle">Add Ground</h2>
+        <label className="sd-label" htmlFor="selectsport">Select a sport:</label>
+        <select className="sd-select" name="selectsport" id="select Sport">
+          {sportlist.length>0 ?(
+            sportlist.map((sport) => (
+              <option value={sport.name}>{sport.name}</option>
+              ))
+            ):(<p>No sports</p>)}
+        </select>
         <label className="sd-label" htmlFor="groundname">Ground Name:</label>
         <input className="sd-input" type="text" name="groundname" id="groundname" placeholder="Ground Name" required />
-
         <label className="sd-label" htmlFor="priceperhour">Price Per Hour:</label>
         <input className="sd-input" type="number" name="priceperhour" id="priceperhour" placeholder="Price Per Hour" required />
 
@@ -274,7 +309,6 @@ const shoplogout = async () => {
 
         <label className="sd-label" htmlFor="facilities">Facilities Available:</label>
         <input className="sd-input" type="text" name="facilities" id="facilities" placeholder="Facilities Available" required />
-
         <label className="sd-label" htmlFor="surfaceType">Surface Type:</label>
         <select className="sd-select" name="surfaceType" id="surfaceType" required>
           <option value="Grass">Grass</option>

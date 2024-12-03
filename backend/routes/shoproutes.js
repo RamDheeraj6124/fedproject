@@ -34,4 +34,5 @@ router.get('/todaybookings',shopController.todaybookings)
 router.post('/applyforverification',shopController.applyforverification)
 router.get('/checkrevenue',shopController.checkRevenue)
 router.post('/logout',shopController.logout)
+router.get('/venues',shopController.searchvenue)
 module.exports = router;

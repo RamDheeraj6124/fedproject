@@ -7,7 +7,7 @@ import Venue from './venue/Venue';
 import PopularSports from './sports/PopularSports';
 import FindPlayers from './findvenue/FindPlayers';
 import BlogSection from './learn/BlogSection';
-import News from './news/News';
+import News1 from './News1/News1';
 
 const Home = () => {
   return (
@@ -16,7 +16,7 @@ const Home = () => {
       <SearchSection />
       <FindPlayers />
       <Venue />
-      <News />
+      <News1 />
       <PopularSports />
       <BlogSection />
       <Footer />

@@ -22,7 +22,7 @@ function Venue() {
             console.log('Fetched Data:', data);
 
             if (Array.isArray(data) && data.length > 0) {
-              setVenues(prevVenues => [...prevVenues, ...data]);
+              setVenues(data);
             } else {
               console.warn('Fetched data is not in expected format:', data);
             }

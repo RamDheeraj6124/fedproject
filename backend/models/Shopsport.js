@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 
 const shopsportSchema = new mongoose.Schema({
+    sport:{
+      type: mongoose.Schema.Types.ObjectId,
+        ref: 'Sport'
+    },
     groundname: { 
         type: String, 
         required: true, 
@@ -10,15 +14,15 @@ const shopsportSchema = new mongoose.Schema({
         default: 0 
     },
     maxplayers: {
-        type: [Number], // Array to accommodate different configurations, e.g., [1, 2, 4]
+        type: [Number], 
         default: [0]
     },
     image: {
         type: String
     },
-    grounddimensions: { // Adding ground dimensions here as requested
-        length: { type: Number }, // E.g., 50 (meters)
-        width: { type: Number }   // E.g., 30 (meters)
+    grounddimensions: { 
+        length: { type: Number },
+        width: { type: Number }
     },
     availability: [{
         day: { 
@@ -27,8 +31,8 @@ const shopsportSchema = new mongoose.Schema({
             required: true
         },
         times: [{
-            start: { type: String, required: true },  // E.g., '08:00 AM'
-            end: { type: String, required: true } ,    // E.g., '10:00 PM'
+            start: { type: String, required: true },  
+            end: { type: String, required: true } ,    
         }]
     }],
     facilities: [{
@@ -39,7 +43,7 @@ const shopsportSchema = new mongoose.Schema({
         enum: ['Grass', 'Turf', 'Clay', 'Hard', 'Synthetic'],
         default: 'Grass'
     },
-    reviews: [{ // Adding reviews
+    reviews: [{ 
         user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
         rating: { type: Number, min: 1, max: 5 },
         comment: { type: String },

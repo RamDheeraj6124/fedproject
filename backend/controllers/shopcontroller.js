@@ -435,3 +435,47 @@ exports.logout=async (req,res)=>{
     }
 }
 
+
+exports.searchvenue = async (req, res) => {
+    const { search } = req.query;
+
+    try {
+        if (!search) {
+            return res.status(400).json({ message: "Search term is required" });
+        }
+
+        // Regular expression for case-insensitive search
+        const regex = new RegExp(search, 'i');
+
+        // Search for matching shops with available sports
+        const shops = await Shop.find({
+            'availablesports.groundname': { $regex: regex }
+        });
+
+        // Extract relevant details
+        const searchResults = shops.flatMap(shop => 
+            shop.availablesports
+                .filter(ground => regex.test(ground.groundname))
+                .map(ground => ground.groundname)
+        );
+
+        const searchShop = shops.flatMap(shop =>
+            shop.availablesports
+                .filter(ground => regex.test(ground.groundname))
+                .map(ground => ({
+                    shopname: shop.shopname,
+                    groundname: ground.groundname,
+                    address: shop.address
+                }))
+        );
+
+        if (searchResults.length > 0) {
+            return res.status(200).json({ searchResults, searchShop });
+        } else {
+            return res.status(404).json({ message: "No venues found matching the search term" });
+        }
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({ message: "Error fetching venues" });
+    }
+};

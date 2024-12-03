@@ -68,12 +68,11 @@ const bookingSchema = new mongoose.Schema({
             min: 1,
             max: 5
         },
-        comment: {
+        review: {
             type: String 
         },
         feedbackDate: {
-            type: Date,
-            default: Date.now
+            type: Date
         }
     }
         

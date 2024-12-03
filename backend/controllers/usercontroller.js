@@ -7,11 +7,11 @@ const Booking=require('../models/Booking');
 // Set up nodemailer
 const transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
-    port: 465,
-    secure: true,
+    port: 587,
+    secure: false,
     auth: {
-        user: 'kbhargavreddy22@gmail.com', 
-        pass: 'ygbi lfdv bpsb giza' 
+        user: 'kunisettyramdheeraj061204@gmail.com', 
+        pass: 'dhmc peub imsq zxka' 
     }
 });
 
@@ -182,7 +182,7 @@ exports.checksession = (req, res) => {
 exports.userbookings=async (req,res)=>{
     const user = req.session.user;
     try{
-        const bookings=await Booking.find({user:user._id});
+        const bookings=await Booking.find({user:user._id}).populate('shop');
         res.status(200).json({bookings});
     }catch(err){
         console.error(err.message);
@@ -217,7 +217,7 @@ exports.logout=async (req,res)=>{
                 return res.status(500).json({ message: 'Failed to log out' });
             }
             // Clear the cookie
-            res.clearCookie('connect.sid'); // Adjust the cookie name if it's different
+
             return res.status(200).json({ message: 'Logged out successfully' });
         });
     } else {

@@ -215,17 +215,19 @@ const BookingPage = () => {
     };
     const bookinghandle = async () => {
       const bookingDetails = {
-          shopname: shopname, // The shop ID associated with the booking
-          groundname: venueData.groundname,
-          date: selectedDate,
-          timeSlot: {
-              start: selectedTime,
-              end: calculateEndTime( selectedTime, playDuration), // Adjusted to pass the date
-          },
-          groundfee:pricePerHour*playDuration,
-          platformfee:(pricePerHour*playDuration*platformpercentage/100),
-          amountPaid: ((pricePerHour * playDuration)+(pricePerHour*playDuration*platformpercentage/100))
-      };
+        shopname: shopname, // The shop ID associated with the booking
+        groundname: venueData.groundname,
+        date: selectedDate,
+        timeSlot: {
+            start: selectedTime,
+            end: calculateEndTime(selectedTime, playDuration), // Adjusted to pass the date
+        },
+        groundfee: pricePerHour * playDuration,
+        platformfee: Number((pricePerHour * playDuration * platformpercentage / 100).toFixed(2)),
+        amountPaid: Number(((pricePerHour * playDuration) + 
+                    (pricePerHour * playDuration * platformpercentage / 100)).toFixed(2))
+    };
+    
       console.log(bookingDetails);
   
       try {
@@ -248,37 +250,46 @@ const BookingPage = () => {
           alert('An error occurred while booking the ground.');
       }
   };
-const calculateEndTime = (startTime, duration) => {
-  // Ensure the startTime is in "HH:mm" format
-  const timeParts = startTime.split(':');
-  if (timeParts.length !== 2) {
-      console.error("Invalid time format. Expected HH:mm");
-      return null; // Handle error accordingly
-  }
-
-  let hours = parseInt(timeParts[0], 10);
-  let minutes = parseInt(timeParts[1], 10);
-
-  // Check if hours and minutes are valid numbers
-  if (isNaN(hours) || isNaN(minutes) || hours < 0 || hours > 23 || minutes < 0 || minutes > 59) {
-      console.error("Invalid hours or minutes:", { hours, minutes });
-      return null; // Handle error accordingly
-  }
-
-  // Create a Date object for the start time
-  const startDate = new Date(); // Get current date
-  startDate.setHours(hours, minutes, 0, 0); // Set the hours and minutes
-
-  // Calculate the end time by adding duration in milliseconds
-  const endDate = new Date(startDate.getTime() + duration * 60 * 60 * 1000); // duration in hours
-
-  // Format the end time as HH:mm
-  const endTime = endDate.toTimeString().slice(0, 5); // Returns time in HH:mm format
-
-  console.log(`Start Time: ${startTime}, Duration: ${duration} hours, End Time: ${endTime}`); // Log to check
-
-  return endTime; // Return the calculated end time
-};
+  const calculateEndTime = (startTime, duration) => {
+    console.log("Start Time:", startTime);
+  
+    let [time, period] = startTime.split(' ');
+    let [hours, minutes] = time.split(':').map(Number);
+  
+    // Convert fractional duration into hours and minutes
+    const additionalHours = Math.floor(duration);
+    const additionalMinutes = Math.round((duration - additionalHours) * 60);
+  
+    // Add duration to start time
+    minutes += additionalMinutes;
+    if (minutes >= 60) {
+      hours += 1;
+      minutes -= 60;
+    }
+    hours += additionalHours;
+  
+    // Handle AM/PM transitions
+    if (hours >= 12) {
+      if (period === 'AM') {
+        period = 'PM';
+      } else {
+        period = 'AM';
+      }
+      if (hours > 12) {
+        hours -= 12;
+      }
+    }
+  
+    // Format hours and minutes
+    const formattedHours = hours === 0 ? 12 : hours.toString().padStart(2, '0');
+    const formattedMinutes = minutes.toString().padStart(2, '0');
+  
+    const endTime = `${formattedHours}:${formattedMinutes} ${period}`;
+    console.log("End Time:", endTime);
+  
+    return endTime;
+  };
+  
 
   
   
@@ -344,9 +355,10 @@ const calculateEndTime = (startTime, duration) => {
                 <option key={index} value={slot}>{slot}</option>
               ))}
             </select>
-            <h3>Ground Price:₹{pricePerHour * playDuration}</h3>
-            <h3>Platform Fee:₹{pricePerHour * playDuration*platformpercentage/100}</h3>
-            <h3>Total Fee:₹{pricePerHour * playDuration+(pricePerHour * playDuration*platformpercentage/100)}</h3>
+            <h3>Ground Price: ₹{(pricePerHour * playDuration).toFixed(2)}</h3>
+            <h3>Platform Fee: ₹{(pricePerHour * playDuration * platformpercentage / 100).toFixed(2)}</h3>
+            <h3>Total Fee: ₹{(pricePerHour * playDuration + (pricePerHour * playDuration * platformpercentage / 100)).toFixed(2)}</h3>
+
             {sessionstate && <button onClick={bookinghandle} className="bp-book-now-button">Book Now</button>}
             {!sessionstate && <a href='/login'>Please log in to book a ground.</a>}
           </div>

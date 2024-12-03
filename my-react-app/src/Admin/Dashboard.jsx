@@ -4,7 +4,6 @@ import { useNavigate, Link, Outlet } from 'react-router-dom';
 
 function Dashboard() {
   const [username, setUsername] = useState(null);
-  const [admin, setAdmin] = useState({});
   const [totalUsers, setTotalUsers] = useState(0);
   const [totalShops, setTotalShops] = useState(0);
   const [totalGrounds, setTotalGrounds] = useState(0);
@@ -24,7 +23,7 @@ function Dashboard() {
         if (response.ok) {
           const data = await response.json();
           setUsername(data.username);
-          setAdmin(data.admin);
+
           setPercentage(data.admin.revenuepercentage || 0);  // Set initial percentage value
 
           setTotalUsers(data.details?.users?.length || 0);
@@ -141,6 +140,7 @@ function Dashboard() {
           <Link to='ManageShops'><li>Manage Shops</li></Link>
           <Link to='Revenuecheck'><li>Check Revenue</li></Link>
           <Link to='BookingList'><li>All Bookings</li></Link>
+          <Link to='AddSports'><li>Add Sports</li></Link>
         </ul>
       </nav>
 

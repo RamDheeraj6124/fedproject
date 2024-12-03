@@ -10,5 +10,7 @@ router.post('/fixpercentage',Admincontroller.fixpercentage)
 router.get('/getpercentage',Admincontroller.getpercentage)
 router.get('/checkrevenue',Admincontroller.checkRevenue)
 router.get('/getallbookings',Admincontroller.getallbookings)
+router.get('/getsportslist',Admincontroller.getsportslist)
 router.post('/logout',Admincontroller.logout)
+router.post('/addsport',Admincontroller.addsport)
 module.exports = router;

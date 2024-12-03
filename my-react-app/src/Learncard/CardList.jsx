@@ -26,6 +26,7 @@ const CardList = () => {
       date: 'Sep 21, 2024',
       category: 'Basketball, Game Rules, Court',
       description: 'The game of basketball is fast-paced and full of action, but have you ever noticed how the dimensions of the court can affect gameplay? Let’s take a closer look at the layout that hosts some of the most iconic basketball matches...',
+      link: '/Learnbasketball'
     },
     {
       image: 'TennisRule.jpg', 
@@ -33,6 +34,7 @@ const CardList = () => {
       date: 'Sep 22, 2024',
       category: 'Tennis, Game Rules, Court',
       description: 'Tennis matches can get pretty intense! But have you ever wondered about the exact dimensions of a tennis court? Whether you’re serving or volleying, knowing the court layout can give you a mental edge...',
+      link: "/LearnTennis"
     },
     {
       image: 'BadmintonRule.jpg', 
@@ -40,6 +42,7 @@ const CardList = () => {
       date: 'Sep 23, 2024',
       category: 'Badminton, Game Rules, Court',
       description: 'Badminton might seem like a simple game at first, but have you ever thought about the exact dimensions of the court where all the action happens? Let’s explore the space where smashes and dropshots are born...',
+      link: "/LearnBadminton"
     },
     {
       image: 'VolleyballRule.jpg', 
@@ -47,6 +50,7 @@ const CardList = () => {
       date: 'Sep 24, 2024',
       category: 'Volleyball, Game Rules, Court',
       description: 'Volleyball is all about teamwork and precision, but did you know the dimensions of the court can impact the game strategy? Dive into the court layout to see how it affects every serve, set, and spike...',
+      link: '/Learnvolleyball' 
     },
     {
       image: 'BaseballRule.gif', 
@@ -54,6 +58,7 @@ const CardList = () => {
       date: 'Sep 25, 2024',
       category: 'Baseball, Game Rules, Field',
       description: 'The thrill of a home run is unmatched, but what about the field dimensions that define the game? Here’s a closer look at the layout of a baseball diamond, where every base counts...',
+      link: "/LearnBaseball"
     },
     {
       image: 'HockeyRule.jpg', 
@@ -61,6 +66,7 @@ const CardList = () => {
       date: 'Sep 26, 2024',
       category: 'Hockey, Game Rules, Rink',
       description: 'Hockey is fast, fierce, and full of action, but what about the dimensions of the ice rink where it all takes place? Let’s explore the rink that hosts some of the fastest-paced games in sports...',
+      link: "/LearnHockey"
     },
     // Add more cards if necessary
   ];

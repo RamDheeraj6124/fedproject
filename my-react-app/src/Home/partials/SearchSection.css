@@ -22,36 +22,69 @@
     align-items: center;
     border-radius: 5px;
     padding: 5px 10px;
-    flex-grow: 1;
-    margin-left: 180px;
+    margin-left: 50px;
+    margin-right: auto;
     justify-content: space-between;
-    max-width: 300px;
+    min-width: 400px;
+    max-width: 500px;
+    position: relative;
 }
 
 .search-input i {
-    font-size: 25px;
+    font-size: 30px;
     color: white;
     margin-right: 5px;
+    margin-top: -10px;
 }
 
 /* Styling for the actual input */
 .search-input input {
     border: 0;
-    border-radius: 10px;
+    border-radius: 50%;
     outline: none;
     font-size: 14px;
     height: 40px;
-    width: 150%;
+    width: 80%;
     padding: 5px;
     color: #6d7d6f;
+    
 }
 
-/* Dropdown menu container */
+/* Search dropdown container */
+.search-dropdown {
+    position: absolute;
+    top: 45px;
+    left: 0;
+    width: 350px;
+    background-color: white;
+    border: 1px solid #ddd;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+    border-radius: 5px;
+    margin-left: 40px;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+/* Search dropdown items */
+.search-dropdown-item {
+    padding: 10px;
+    font-size: 14px;
+    color: #333;
+    cursor: pointer;
+    background-color: #f9f9f9;
+}
+
+.search-dropdown-item:hover {
+    background-color: #e0e0e0;
+}
+
+/* Sports Dropdown */
 .dropdown-menu {
     position: relative;
     display: inline-block;
-    margin-top: 9px;
-    margin-left: 130px;
+    margin-top: 5px;
+    left: -50px;
 }
 
 /* Dropdown button styling */
@@ -63,7 +96,7 @@
     padding: 5px 10px;
     font-size: 14px;
     cursor: pointer;
-    width: 120%;
+    width: 200px;
     text-align: left;
     height: 40px;
     display: flex;
@@ -85,23 +118,21 @@
     position: absolute;
     background-color: white;
     border: 1px solid #ccc;
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
     z-index: 1;
-    width: 240%;
-    margin-left: -120px;
-    max-height: 300px; /* Adjust height as needed */
-    overflow-y: auto;
+    width: 240px;
     margin-top: 5px;
+    border-radius: 5px;
+    max-height: 300px;
+    overflow-y: auto;
 }
 
 /* Grid layout for dropdown items */
 .dropdown-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 5px;
-    padding: 5px;
-    width: 50px;
+    padding: 10px;
 }
 
 .dropdown-item {
@@ -118,13 +149,10 @@
 
 /* Responsive behavior for smaller screens */
 @media (max-width: 768px) {
-    .search-input, .dropdown-menu {
-        width: 100%;
-        margin-bottom: 10px;
-    }
-
     .search-input {
+        max-width: 100%;
         margin-left: 0;
+        margin-right: 0;
     }
 
     .dropdown-menu {
