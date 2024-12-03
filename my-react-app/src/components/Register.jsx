@@ -24,13 +24,13 @@ function Register() {
             setEmailError('');
         }
         if (!passwordPattern.exec(password)) {
-            setPasswordError('Password must be at least 8 characters long, contain a mix of uppercase, lowercase, numeric, and special characters.');
+            setPasswordError('!Password must be at least 8 characters long, contain a mix of uppercase, lowercase, numeric, and special characters.');
             return;
         } else {
             setPasswordError('');
         }
         if (password !== confirmPassword) {
-            setConfirmPasswordError('Passwords do not match');
+            setConfirmPasswordError('!Passwords do not match');
             return;
         } else {
             setConfirmPasswordError('');
@@ -62,7 +62,7 @@ function Register() {
     return (
         <div className="background-wrapper">
             <div className='shoplink'>
-                <a href="/shoplogin" className='underline'><h1>Shop User</h1></a>
+                <a href="/login" className='underline'><h1>User</h1></a>
             </div>
             <div className="login-container">
                 <h2 className='center'>Register</h2>
@@ -105,10 +105,10 @@ function Register() {
                             onChange={(e) => setPassword(e.target.value)}
                             required
                         />
-                        <span>
-                            <p className="m1">{passwordError}</p>
-                        </span>
                     </div>
+                    <span>
+                            <p className="m1"><i class="fas fa-exclamation"></i>{passwordError}</p>
+                        </span>
                     <div className="input-group">
                         <span className="icon">
                             <img src="https://img.icons8.com/ios-filled/20/000000/lock.png" alt="Confirm Password" />
@@ -120,10 +120,10 @@ function Register() {
                             onChange={(e) => setConfirmPassword(e.target.value)}
                             required
                         />
-                        <span>
-                            <p className="m1">{confirmPasswordError}</p>
-                        </span>
                     </div>
+                    <span>
+                            <p className="m1"><i class="fas fa-exclamation"></i>{confirmPasswordError}</p>
+                        </span>
                     <div className="options">
                         <label>
                             <input type="checkbox" /> Remember me

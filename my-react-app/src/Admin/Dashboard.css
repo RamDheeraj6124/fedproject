@@ -1,125 +1,160 @@
 .dashboard3 {
-    display: flex;
-    flex-direction: column;
-    background-color: white;
-    min-width: 100%;
-    min-height: 100%;
-    height: 100%;
-    font-family: Arial, sans-serif;
-  }
-  
-  .upperbar {
-    display: flex; /* Use flexbox layout */
-    justify-content: space-between; /* Space out items evenly */
-    align-items: center; /* Vertically center items */
-    padding: 15px; /* Add some padding */
-    background-color: lightgreen;
-    color: #fff; /* Text color */
-    min-height: 80px;
-  }
-  
-  .upperbar h1 {
-    flex: 1; /* Allow the heading to take available space */
-    text-align: center; /* Center the text */
-    margin-top: 10px;
-    margin-left: 50px;
-    padding: 10px;
-    color: #333;
-  }
-  
-  
-  .logout {
-    cursor: pointer;
-    background-color: transparent; /* Transparent background */
-    color: #333; /* White text color */
-    font-size: 16px; /* Font size */
-    padding: 10px 15px; /* Padding for the button */
-    border: none; /* No border */
-    border-radius: 5px; /* Rounded corners */
-    display: flex; /* Flexbox for alignment */
-    align-items: center; /* Vertically center the icon and text */
-    transition: background-color 0.3s, transform 0.3s; /* Transition for effects */
-    font-size: 20px;
-  }
-  
-  .logout i {
-    margin-right: 5px; /* Spacing between icon and text */
-  }
-  
-  .logout:hover {
-    background-color: rgba(255, 255, 255, 0.2); /* Lighten the background on hover */
-    transform: scale(1.05); /* Slightly enlarge the button on hover */
-  }
-  
-  .dashboard-summary {
-    display: flex;
-    flex-wrap: wrap; /* Allows items to wrap */
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px;
-    background-color: #f8f9fa; /* Light gray background */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    margin: 15px; /* Margin for spacing */
-  }
-  
-  .summary-item {
-    background-color: white; /* Background for each summary item */
-    padding: 20px;
-    border-radius: 5px; /* Rounded corners */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Light shadow for depth */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    flex: 1; /* Flex to make items equal width */
-    transition: transform 0.3s ease, background-color 0.3s ease; /* Add smooth hover effect */
-  }
-  
-  .summary-item h2 {
-    font-size: 18px; /* Font size for headers */
-    margin-bottom: 10px; /* Space below header */
-    color: #333; /* Dark text for headers */
-  }
-  
-  .summary-item p {
-    font-size: 24px; /* Font size for the numeric values */
-    color: #ff5733; /* Color for numbers, similar to your card style */
-    margin: 0; /* Remove default margin */
-  }
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  min-width: 100%;
+  min-height: 180%;
+  height: 100%;
+  font-family: Arial, sans-serif;
+}
 
-  .summary-item:hover {
-    transform: translateY(-5px); /* Hover effect to lift the card slightly */
-    background-color: #f0f0f0; /* Light background change on hover */
-  }
-  
-  .navbar1 {
-    display: flex;
-    justify-content: space-around; /* Space between navbar items */
-    background-color: lightgreen; /* Bootstrap primary color */
-    padding: 10px 0; /* Padding for navbar */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+.dashboard3 h1 {
+  text-align: center;
+  margin-top:30px;
+}
+
+.fixpercentage {
+  display:flex;
+  justify-content: center;
+}
+
+.fixpercentage label {
+  margin-right: 20px;
+  margin-top: 5px;
+}
+
+.fixpercentage input {
+  width: 250px;
+  height: 30px;
+  border-radius: 10px;
+  margin-bottom: 30px;
+}
+
+.fixbutton {
+  width:80px;
+  height:30px;
+  margin-left: 10px;
+}
+
+.upperbar {
+  display: flex; /* Use flexbox layout */
+  justify-content: space-between; /* Space out items evenly */
+  align-items: center; /* Vertically center items */
+  padding: 15px; /* Add some padding */
+  background-color: lightgreen;
+  color: #fff; /* Text color */
+  height: 70px;
+}
+
+.upperbar h1 {
+  flex: 1; /* Allow the heading to take available space */
+  text-align: center; /* Center the text */
+  margin-top: 10px;
+  margin-left: 50px;
+  padding: 10px;
+  color: #333;
+}
+
+
+.logout {
+  cursor: pointer;
+  background-color: transparent; /* Transparent background */
+  color: #333; /* White text color */
+  font-size: 16px; /* Font size */
+  padding: 10px 15px; /* Padding for the button */
+  border: none; /* No border */
+  border-radius: 5px; /* Rounded corners */
+  display: flex; /* Flexbox for alignment */
+  align-items: center; /* Vertically center the icon and text */
+  transition: background-color 0.3s, transform 0.3s; /* Transition for effects */
+  font-size: 20px;
+}
+
+.logout i {
+  margin-right: 5px; /* Spacing between icon and text */
+}
+
+.logout:hover {
+  background-color: rgba(255, 255, 255, 0.2); /* Lighten the background on hover */
+  transform: scale(1.05); /* Slightly enlarge the button on hover */
+}
+
+.dashboard-summary {
+  display: flex;
+  flex-wrap: wrap; /* Allows items to wrap */
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: #f8f9fa; /* Light gray background */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin: 15px; /* Margin for spacing */
+}
+
+.summary-item {
+  background-color: white; /* Background for each summary item */
+  padding: 20px;
+  border-radius: 5px; /* Rounded corners */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Light shadow for depth */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1; /* Flex to make items equal width */
+  transition: transform 0.3s ease, background-color 0.3s ease; /* Add smooth hover effect */
+}
+
+.summary-item h2 {
+  font-size: 18px; /* Font size for headers */
+  margin-bottom: 10px; /* Space below header */
+  color: #333; /* Dark text for headers */
+}
+
+.summary-item p {
+  font-size: 24px; /* Font size for the numeric values */
+  color: #ff5733; /* Color for numbers, similar to your card style */
+  margin: 0; /* Remove default margin */
+}
+
+.summary-item:hover {
+  transform: translateY(-5px); /* Hover effect to lift the card slightly */
+  background-color: #f0f0f0; /* Light background change on hover */
+}
+
+.navbar1 {
+  display: flex;
+  justify-content: space-around; /* Space between navbar items */
+  background-color: lightgreen; /* Bootstrap primary color */
+  padding: 10px 0; /* Padding for navbar */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+
+.navbar1 a {
+text-decoration: none;
+color: #333;
+border: 2px solid #333;
+margin: 10px;
+}
+
+.navbar1 a:hover {
+  border-radius: 10px;
+  transition: 0.5s;
 }
 
 .navbar1 ul {
-    list-style: none; /* Remove bullet points */
-    display: flex; /* Flexbox for horizontal layout */
-    padding: 0;
+  list-style: none; /* Remove bullet points */
+  display: flex; /* Flexbox for horizontal layout */
+  padding: 0;
 }
 
 .navbar1 ul li {
-    display: flex;
-    align-items: center;
-    margin: 0 20px; /* Space between navbar items */
-    color: #333; /* Text color */
-    cursor: pointer;
-    padding: 10px;
-    border-radius: 4px; /* Rounded corners */
-    text-decoration: none;
-    transition: background-color 0.3s, color 0.3s; /* Transition for hover effects */
-    font-weight: bold;
+  display: flex;
+  align-items: center;
+  margin: 0 20px; /* Space between navbar items */
+  color: #333; /* Text color */
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 4px; /* Rounded corners */
+  text-decoration: none;
+  transition: background-color 0.3s, color 0.3s; /* Transition for hover effects */
+  font-weight: bold;
 }
-
-.navbar1 ul li:hover {
-    background-color: white; /* Hover background color */
-    opacity: 1.2;
-}
-  

@@ -317,8 +317,19 @@ exports.loadGround = async (req, res) => {
             }
         }
         const address=shop.address;
+        
+        const shopbookings = await Booking.find({ shop: shop._id }).populate('user','username');
+        const groundfeedbacks = shopbookings
+            .filter(feedback => feedback.groundname === ground.groundname)
+            .map(feedback => ({
+                username: feedback.user?.username || null,
+                rating: feedback.feedback?.rating || null,
+                review: feedback.feedback?.review || null,
+                feedbackDate: feedback.feedback?.feedbackDate || null,
+            }));
 
-        res.status(200).json({ground,address});
+
+        res.status(200).json({ground,address,groundfeedbacks});
     } catch (error) {
         console.error('Error loading ground:', error);
         res.status(500).json({ message: 'An error occurred while loading the ground.' });

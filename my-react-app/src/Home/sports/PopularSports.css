@@ -2,11 +2,10 @@
     margin: 20px;
   }
   
-  h2 {
-    font-size: 24px;
-    font-weight: bold;
+ .popular-sports-container h2 {
     margin-bottom: 20px;
     text-align: left;
+    font-size: 1.4rem;
   }
   
   .sports-card-container {

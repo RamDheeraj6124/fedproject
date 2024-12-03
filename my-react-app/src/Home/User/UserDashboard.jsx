@@ -7,9 +7,8 @@ const UserDashboard = () => {
     const [user, setUser] = useState(null);
     const [userBookings, setUserBookings] = useState([]);
     const [contact, setContact] = useState('');
-    const [email, setEmail] = useState('');
     const [editingContact, setEditingContact] = useState(false);
-    const [error, setError] = useState(''); // For form validation
+    const [error, setError] = useState('');
     const [showRatingModal, setShowRatingModal] = useState(false);
     const [rating, setRating] = useState(0);
     const [review, setReview] = useState('');
@@ -17,12 +16,10 @@ const UserDashboard = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-
         const checkSessions = async () => {
             try {
-                // Fetch user session
                 const userResponse = await fetch('http://localhost:5000/user/checksession', {
-                    credentials: 'include'
+                    credentials: 'include',
                 });
 
                 if (userResponse.ok) {
@@ -31,12 +28,11 @@ const UserDashboard = () => {
                     setContact(data.user.contact || '');
                 } else {
                     setUser(null);
-                    navigate('/login'); // Redirect to login if no user session
+                    navigate('/login');
                 }
 
-                // Fetch user bookings
                 const bookingsResponse = await fetch('http://localhost:5000/user/userbookings', {
-                    credentials: 'include'
+                    credentials: 'include',
                 });
 
                 if (bookingsResponse.ok) {
@@ -56,7 +52,7 @@ const UserDashboard = () => {
             setError('Contact number cannot be empty.');
             return;
         }
-        if (!/^\d{10}$/.test(contact)) {  // Assuming contact is a 10-digit number
+        if (!/^\d{10}$/.test(contact)) {
             setError('Invalid contact number. It should be 10 digits.');
             return;
         }
@@ -73,24 +69,26 @@ const UserDashboard = () => {
 
             if (response.ok) {
                 const data = await response.json();
-                setUser(data); // Update user with the new contact
+                setUser(data);
                 setEditingContact(false);
-                setError(''); // Clear error
+                setError('');
             }
         } catch (err) {
             console.error('Error updating contact:', err);
         }
     };
+
     const handleOpenRatingModal = (booking) => {
         setCurrentBooking(booking);
         setShowRatingModal(true);
     };
+
     const handleSubmitRating = async () => {
         if (!rating || rating < 1 || rating > 5) {
             alert('Please select a rating between 1 and 5.');
             return;
         }
-        console.log('hi rating')
+
         try {
             const response = await fetch('http://localhost:5000/user/submitfeedback', {
                 method: 'POST',
@@ -115,11 +113,18 @@ const UserDashboard = () => {
                 setShowRatingModal(false);
                 setRating(0);
                 setReview('');
+                alert('Feedback saved successfully.');
             }
         } catch (error) {
             console.error('Error submitting feedback:', error);
         }
     };
+
+    const filterUpcomingBookings = () =>
+        userBookings.filter((booking) => new Date(booking.date).getTime() > Date.now());
+
+    const filterPastBookings = () =>
+        userBookings.filter((booking) => new Date(booking.date).getTime() <= Date.now());
 
     return (
         <div className="ud-container">
@@ -154,12 +159,30 @@ const UserDashboard = () => {
                 </div>
             </div>
 
-            <h2 className="ud-bookings-title">Your Bookings</h2>
+            <h2 className="ud-bookings-title">Your Upcoming Bookings</h2>
             <div className="ud-bookings">
-                {userBookings.length === 0 ? (
-                    <p>No bookings found.</p>
+                {filterUpcomingBookings().length === 0 ? (
+                    <p>No upcoming bookings found.</p>
                 ) : (
-                    userBookings.map((booking) => (
+                    filterUpcomingBookings().map((booking) => (
+                        <div className="ud-booking-card" key={booking._id}>
+                            <h2>{booking.shop.shopname}</h2>
+                            <h2 className="ud-ground-name">{booking.groundname}</h2>
+                            <p className="ud-date">Date: {new Date(booking.date).toLocaleDateString()}</p>
+                            <p className="ud-time-slot">Time Slot: {booking.timeSlot.start} - {booking.timeSlot.end}</p>
+                            <p className="ud-amount-paid">Amount Paid: ${booking.amountPaid}</p>
+                            <p className="ud-status">Status: {booking.status}</p>
+                        </div>
+                    ))
+                )}
+            </div>
+
+            <h2 className="ud-bookings-title">Your Past Bookings</h2>
+            <div className="ud-bookings">
+                {filterPastBookings().length === 0 ? (
+                    <p>No past bookings found.</p>
+                ) : (
+                    filterPastBookings().map((booking) => (
                         <div className="ud-booking-card" key={booking._id}>
                             <h2>{booking.shop.shopname}</h2>
                             <h2 className="ud-ground-name">{booking.groundname}</h2>
@@ -168,22 +191,19 @@ const UserDashboard = () => {
                             <p className="ud-amount-paid">Amount Paid: ${booking.amountPaid}</p>
                             <p className="ud-status">Status: {booking.status}</p>
                             {!booking.feedback && (
-                                <div className="userfeedback">
-                                    <button onClick={() => handleOpenRatingModal(booking)}>Give Rating</button>
-                                </div>
-                            )} 
-                            {booking.feedback && booking.feedback.rating && (
+                                <button onClick={() => handleOpenRatingModal(booking)}>Give Rating</button>
+                            )}
+                            {booking.feedback && (
                                 <div className="ud-feedback">
-                                    <p className="ud-rating">Rating: {booking.feedback.rating}/5</p>
-                                    <p className="ud-comment">Comment: {booking.feedback.comment}</p>
+                                    <p>Rating: {booking.feedback.rating}/5</p>
+                                    <p>Review: {booking.feedback.review}</p>
                                 </div>
-                            )}                           
+                            )}
                         </div>
-                        
                     ))
-                    
                 )}
             </div>
+
             {showRatingModal && (
                 <div className="ud-rating-modal">
                     <div className="ud-modal-content">
@@ -194,7 +214,7 @@ const UserDashboard = () => {
                             <option value="">Select Rating</option>
                             {[1, 2, 3, 4, 5].map((star) => (
                                 <option key={star} value={star}>
-                                    {star} Star{star > 1 ? 's' : ''}
+                                    {star} Star
                                 </option>
                             ))}
                         </select>
@@ -203,8 +223,10 @@ const UserDashboard = () => {
                             value={review}
                             onChange={(e) => setReview(e.target.value)}
                             placeholder="Write your review here"
-                        />
-                        <button onClick={handleSubmitRating}>Submit</button>
+                        ></textarea>
+                        <button className="ud-submit-feedback-btn" onClick={handleSubmitRating}>
+                            Submit Feedback
+                        </button>
                     </div>
                 </div>
             )}

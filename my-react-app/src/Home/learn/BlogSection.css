@@ -36,7 +36,12 @@
     font-weight: bold;
   }
 
+  .flexconatiner h2 {
+    font-size: 1.4rem;
+  }
+
   .textdecoration {
     text-decoration: none;
+    margin-right: 20px;
   }
   

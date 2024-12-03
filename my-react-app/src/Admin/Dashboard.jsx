@@ -121,26 +121,31 @@ function Dashboard() {
           <p>{appliedGrounds.length}</p>
         </div>
       </section>
+      <br />
 
       {/* Form to update the platform fee percentage */}
       <form onSubmit={fixpercentage}>
+        <div className='fixpercentage'>
         <label>Fix Revenue Percentage(%):</label>
         <input
           type='number'
           value={percentage}
           onChange={(e) => setPercentage(e.target.value)}  // Update state on input change
         />
-        <button type='submit'>Fix</button>
+        <button type='submit' className='fixbutton'>Fix</button>
+        </div>
       </form>
+      <br />
 
       <nav className="navbar1">
         <ul>
           <Link to='ManageUsers'><li>Manage Users</li></Link>
-          <Link to='VerifyUsers'><li>Verify Users</li></Link>
+          <Link to='VerifyUsers'><li>Verify Shops</li></Link>
           <Link to='ManageShops'><li>Manage Shops</li></Link>
           <Link to='Revenuecheck'><li>Check Revenue</li></Link>
           <Link to='BookingList'><li>All Bookings</li></Link>
           <Link to='AddSports'><li>Add Sports</li></Link>
+          <Link to='Queries'><li>Queries</li></Link>
         </ul>
       </nav>
 

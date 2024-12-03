@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import './BookingList.css';
 
 const BookingsList = () => {
     const [bookings, setBookings] = useState({
@@ -33,23 +34,26 @@ const BookingsList = () => {
     }, []);
 
     if (loading) {
-        return <div>Loading...</div>;
+        return <div className="loading">Loading...</div>;
     }
 
     if (error) {
-        return <div>Error: {error}</div>;
+        return <div className="error">Error: {error}</div>;
     }
 
     return (
-        <div>
-            <h2>Bookings</h2>
+        <div className="bookings-list">
+            <h1>Bookings</h1>
+            <div className='bookings'>
             <div>
-                <h3>Future Bookings</h3>
+                <h2>Future Bookings</h2>
                 {bookings.futureBookings.length > 0 ? (
                     <ul>
                         {bookings.futureBookings.map((booking) => (
                             <li key={booking._id}>
-                                <strong>{booking.shop.shopname}</strong><strong>{booking.groundname} on {new Date(booking.date).toLocaleDateString()}</strong> from {booking.timeSlot.start} to {booking.timeSlot.end}
+                                <strong>{booking.shop.shopname}</strong><br />
+                                <strong>{booking.groundname} on {new Date(booking.date).toLocaleDateString()}</strong><br />
+                                from {booking.timeSlot.start} to {booking.timeSlot.end}
                             </li>
                         ))}
                     </ul>
@@ -58,12 +62,14 @@ const BookingsList = () => {
                 )}
             </div>
             <div>
-                <h3>Today's Bookings</h3>
+                <h2>Today's Bookings</h2>
                 {bookings.todaysBookings.length > 0 ? (
                     <ul>
                         {bookings.todaysBookings.map((booking) => (
                             <li key={booking._id}>
-                                <strong>{booking.shop.shopname}</strong><strong>{booking.groundname} on {new Date(booking.date).toLocaleDateString()}</strong> from {booking.timeSlot.start} to {booking.timeSlot.end}
+                                <strong>{booking.shop.shopname}</strong><br />
+                                <strong>{booking.groundname} on {new Date(booking.date).toLocaleDateString()}</strong><br /><br />
+                                from {booking.timeSlot.start} to {booking.timeSlot.end}
                             </li>
                         ))}
                     </ul>
@@ -72,12 +78,14 @@ const BookingsList = () => {
                 )}
             </div>
             <div>
-                <h3>Past Bookings</h3>
+                <h2>Past Bookings</h2>
                 {bookings.pastBookings.length > 0 ? (
                     <ul>
                         {bookings.pastBookings.map((booking) => (
                             <li key={booking._id}>
-                                <strong>{booking.shop.shopname}</strong><strong>{booking.groundname} on {new Date(booking.date).toLocaleDateString()}</strong> from {booking.timeSlot.start} to {booking.timeSlot.end}
+                                <strong>{booking.shop.shopname}</strong><br />
+                                <strong>{booking.groundname} on {new Date(booking.date).toLocaleDateString()}</strong><br />
+                                from {booking.timeSlot.start} to {booking.timeSlot.end}
                             </li>
                         ))}
                     </ul>
@@ -85,6 +93,7 @@ const BookingsList = () => {
                     <p>No past bookings found.</p>
                 )}
             </div>
+        </div>
         </div>
     );
 };

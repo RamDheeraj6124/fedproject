@@ -41,13 +41,9 @@ const BlogSection = () => {
   return (
     <div className="blog-section">
       <div className="flexconatiner">
-        <h1>Learn Your Favorite Sport!</h1>
+        <h2>Learn Your Favorite Sport!</h2>
         <a href='/Learn' className='textdecoration'><p>See All</p></a>
       </div>
-      <h4 className='para'>
-        Explore our Learning posts to gain insights and improve your skills in various sports. 
-        Whether you're a beginner or an experienced athlete, you'll find valuable tips and guides to elevate your game.
-      </h4>
       <div className="blog-container">
         {blogs.map((blog, index) => (
           <BlogCard

@@ -44,3 +44,7 @@
   color: gray;
   font-size: 14px;
 }
+
+.vcbutton a{
+  text-decoration: none;
+}

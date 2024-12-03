@@ -1,0 +1,321 @@
+/* General admin dashboard styles */
+.admin-dashboard {
+    padding: 20px;
+    font-family: 'Roboto', sans-serif;
+    background-color: #f7f9fc; /* Light, neutral background */
+    color: #333; /* Text color for readability */
+}
+
+/* Main title styles */
+#ad-dashboard-title {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+/* Section titles */
+#ad-users-title,
+#ad-verify-shops-title,
+#ad-shops-title {
+    font-size: 28px;
+    font-weight: bold;
+    color: #333; /* Primary color for section titles */
+    margin-bottom: 20px;
+    text-align: center;
+    text-transform: uppercase; /* Uppercase for emphasis */
+    letter-spacing: 1px; /* Slight spacing for better readability */
+    border-bottom: 3px solid #333; /* Darker blue underline */
+    padding-bottom: 7px; /* Space between title and content */
+}
+
+/* List styles */
+#ad-shops-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 auto; /* Center the list */
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px; /* Spacing between list items */
+}
+
+#ad-shops-list li {
+    background-color: #ffffff; /* White background for contrast */
+    border: 1px solid #e0e0e0; /* Light border for structure */
+    border-radius: 10px; /* Rounded corners */
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    transition: transform 0.2s, box-shadow 0.3s, background-color 0.3s; /* Smooth animations */
+    cursor: pointer; /* Indicate clickable items */
+}
+
+#ad-shops-list li:hover {
+    transform: translateY(-5px); /* Lift effect on hover */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+    background-color: #f9f9f9; /* Slightly darker background on hover */
+}
+
+#ad-shops-list li p {
+    margin: 10px 0; /* Spacing between lines */
+    font-size: 16px;
+    color: #333; /* Dark text for readability */
+    line-height: 1.5; /* Comfortable line spacing */
+}
+
+#ad-shops-list li p:first-child {
+    font-weight: bold; /* Highlight the shop name */
+    font-size: 18px; /* Slightly larger for emphasis */
+    color: #333; /* Match the title color */
+}
+
+/* Users and Verify Shops lists (preserved from original CSS) */
+#ad-users-list,
+#ad-verify-shops-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+#ad-users-list li,
+#ad-verify-shops-list li {
+    background: #fff;
+    margin: 10px 0;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+#ad-users-list li:hover,
+#ad-verify-shops-list li:hover {
+    background-color: #e9e9e9;
+    transform: translateY(-2px);
+}
+
+/* Modal styles */
+.modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Dark overlay */
+    overflow: auto;
+}
+
+.modal-content {
+    background: #fff;
+    border-radius: 12px;
+    padding: 25px;
+    max-width: 700px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3); /* Deeper shadow for focus */
+}
+
+.close {
+    float: right;
+    font-size: 28px;
+    color: #555; /* Softer color */
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.close:hover {
+    color: #ff4d4d; /* Red for hover effect */
+}
+
+.shop-details {
+    background-color: #f9f9f9; /* Light grey background */
+    border: 1px solid #ddd; /* Subtle border */
+    border-radius: 10px; /* Rounded corners for a clean look */
+    padding: 15px; /* Reduced padding */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+    margin-top: 15px; /* Space above the container */
+    font-family: 'Roboto', sans-serif; /* Clean font for readability */
+    color: #333; /* Neutral text color */
+    display: flex;
+    flex-direction: column; /* Ensures content is stacked vertically */
+    gap: 10px; /* Reduced space between rows */
+}
+
+.shop-details p {
+    margin: 0; /* Remove default paragraph margin */
+    font-size: 16px; /* Comfortable text size */
+    line-height: 1.4; /* Reduced line height */
+    display: flex;
+    justify-content: space-between; /* Space between label and value */
+    align-items: center; /* Align label and value on the same baseline */
+    color: #555; /* Neutral text color */
+}
+
+.shop-details p strong {
+    font-weight: bold; /* Bold for labels */
+    color: #333; /* Primary theme color for labels */
+    flex: 1; /* Take up equal space to align with the value */
+    text-align: left; /* Ensure labels align to the left */
+}
+
+.shop-details p span {
+    flex: 2; /* Value takes up more space */
+    color: #333; /* Slightly darker color for values */
+    text-align: left; /* Align values to the left */
+}
+
+/* Hover effect */
+.shop-details:hover {
+    background-color: #f1f1f1; /* Slightly darker background */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Enhanced shadow */
+    transition: background-color 0.3s, box-shadow 0.3s; /* Smooth animation */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .shop-details {
+        padding: 12px; /* Further reduced padding for smaller screens */
+        gap: 2px; /* Less space between rows on smaller screens */
+    }
+
+    .shop-details p {
+        font-size: 14px; /* Smaller font for smaller screens */
+    }
+}
+
+
+.sport-verification-section {
+    background-color: #f9f9f9; /* Light grey background */
+    border: 1px solid #ddd; /* Subtle border */
+    border-radius: 10px; /* Rounded corners for a clean look */
+    padding: 15px; /* Padding for content */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    margin-top: 15px; /* Space above the container */
+    font-family: 'Roboto', sans-serif; /* Clean font for readability */
+    color: #333; /* Neutral text color */
+    display: flex;
+    flex-direction: column; /* Stacks items vertically */
+    gap: 10px; /* Reduced space between rows */
+}
+
+.sport-verification-section p {
+    margin: 0; /* Remove default paragraph margin */
+    font-size: 16px; /* Comfortable font size */
+    line-height: 1.4; /* Reduced line height */
+    display: flex;
+    justify-content: space-between; /* Space between label and value */
+    align-items: center; /* Align label and value on the same baseline */
+    color: #555; /* Neutral text color */
+}
+
+.sport-verification-section p strong {
+    font-weight: bold; /* Bold for labels */
+    color: #333; /* Primary color for labels */
+    flex: 1; /* Take up equal space to align with value */
+    text-align: left; /* Ensure labels align to the left */
+}
+
+.sport-verification-section p span {
+    flex: 2; /* Value takes up more space */
+    color: #333; /* Darker color for values */
+    text-align: left; /* Align values to the left */
+}
+
+.sport-verification-section h3 {
+    font-size: 18px; /* Slightly larger font for headings */
+    color: #333; /* Primary theme color */
+    margin-top: 15px; /* Space above the section */
+    margin-bottom: 8px; /* Space below the heading */
+}
+
+.sport-verification-section ul {
+    list-style: none; /* Remove list bullets */
+    padding: 0; /* Remove padding */
+    margin: 0; /* Remove margin */
+}
+
+.sport-verification-section ul li {
+    margin: 5px 0; /* Space between each list item */
+    padding: 8px;
+    background-color: #fff; /* White background for list items */
+    border: 1px solid #ddd; /* Light border */
+    border-radius: 5px; /* Rounded corners */
+}
+
+/* Hover effect */
+.sport-verification-section:hover {
+    background-color: #f1f1f1; /* Slightly darker background on hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Enhanced shadow */
+    transition: background-color 0.3s, box-shadow 0.3s; /* Smooth transition */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .sport-verification-section {
+        padding: 12px; /* Reduced padding for smaller screens */
+        gap: 8px; /* Less space between rows */
+    }
+
+    .sport-verification-section p {
+        font-size: 14px; /* Smaller font for smaller screens */
+    }
+}
+
+
+/* Button styles (general) */
+.submit-button {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #28a745; /* Green button */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+}
+
+.submit-button:hover {
+    background-color: #218838; /* Darker green for hover */
+    transform: translateY(-2px);
+}
+
+/* Login message */
+.login-message {
+    font-size: 18px;
+    text-align: center;
+    color: #ff4d4d;
+    margin-top: 20px;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    #ad-shops-list {
+        grid-template-columns: 1fr; /* Single column on smaller screens */
+    }
+
+    .modal-content {
+        padding: 20px;
+    }
+
+    #ad-shops-title {
+        font-size: 24px; /* Adjust title size for smaller devices */
+    }
+
+    .sport-verification-section {
+        padding: 15px;
+    }
+
+    .sport-verification-section h3 {
+        font-size: 16px;
+    }
+
+    .sport-verification-section p,
+    .sport-verification-section ul li {
+        font-size: 14px;
+    }
+}

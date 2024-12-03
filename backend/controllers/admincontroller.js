@@ -3,14 +3,17 @@ const User = require('../models/User');
 const Shop = require('../models/Shop');
 const Booking=require('../models/Booking');
 const Sport=require('../models/Sport');
+const Query = require('../models/Query');
 
 const displaydetails = async () => {
     let users = [];
     let shops = [];
+    let queries=[];
     try {
         users = await User.find();
         shops = await Shop.find();
-        return { users, shops }; // Return the data
+        queries=await Query.find();
+        return { users, shops,queries }; // Return the data
     } catch (err) {
         console.error(err);
         throw new Error("Error retrieving data");

@@ -40,3 +40,12 @@
     color: gray;
     margin: 4px 0 12px;
   }
+
+  .vcbutton a{
+    text-decoration: none;
+    color: #333;
+  }
+
+  .vcbutton {
+    width: 120px;
+  }

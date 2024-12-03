@@ -12,10 +12,7 @@ const VenueCard2 = ({ venue }) => {
       <div className="venue-details">
         <h3>{venue.name}</h3>
         <p>{venue.address}</p>
-        <div className="Venuhighlight">
-
-        </div>
-        <Link to={`/Booking/${formattedVenueName}_${formattedGroundName}`}>Book Now</Link>
+        <button className='vcbutton'><Link to={`/Booking/${formattedVenueName}_${formattedGroundName}`}>Book Now</Link></button>
       </div>
     </div>
   );

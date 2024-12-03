@@ -66,6 +66,9 @@
     overflow-y: auto;
 }
 
+.search-dropdown2:hover {
+    border: 1px solid #333; 
+}
 /* Search dropdown items */
 .search-dropdown-item {
     padding: 10px;
@@ -146,6 +149,18 @@
 .dropdown-item:hover {
     background-color: #e0e0e0;
 }
+
+
+.dropdownstyle h1{
+   text-align: left;
+   font-size: 1.1rem;
+}
+
+.dropdownstyle p {
+    text-align: left;
+}
+
+
 
 /* Responsive behavior for smaller screens */
 @media (max-width: 768px) {

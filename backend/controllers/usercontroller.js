@@ -2,7 +2,7 @@ const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 const nodemailer = require('nodemailer');
 const Booking=require('../models/Booking');
-
+const Query=require('../models/Query');
 
 // Set up nodemailer
 const transporter = nodemailer.createTransport({
@@ -249,3 +249,18 @@ exports.submitfeedback = async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 };
+exports.submitquery=async (req,res)=>{
+    console.log('hi')
+    const {name,email,mobile,message}=req.body;
+    console.log(req.body)
+    try{
+    userquery=new Query({ 
+        name,email,mobile,message
+    });
+    await userquery.save();
+    res.status(200).json({"message":"Query saved successfully"})
+    }catch(err){
+        console.log(err);
+    }
+}
+

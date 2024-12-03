@@ -24,7 +24,12 @@
     text-decoration: none;
     color: #333;
 }
-
+.m1 {
+    text-align:left;
+    font-size: 0.8rem;
+    margin-left: 10px;
+    color: red;
+}
 .center {
     text-align: center;
 }

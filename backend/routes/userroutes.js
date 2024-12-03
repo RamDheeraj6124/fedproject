@@ -12,4 +12,5 @@ router.get('/userbookings',Usercontroller.userbookings);
 router.post('/updatecontact',Usercontroller.updatecontact);
 router.post('/logout',Usercontroller.logout);
 router.post('/submitfeedback',Usercontroller.submitfeedback);
+router.post('/submitquery',Usercontroller.submitquery);
 module.exports = router;

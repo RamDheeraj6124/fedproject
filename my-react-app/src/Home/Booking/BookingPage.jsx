@@ -22,6 +22,7 @@ const BookingPage = () => {
   const [alreadybookedgrounds,setalreadybookedgrounds]=useState(null);
   const [sessionstate,setsessionstate]=useState(false);
   const [platformpercentage,setplatformpercentage]=useState(0);
+  const [groundfeedbacks,setGroundfeedbacks]=useState(null);
 
   useEffect(() => {
     if (effectRan.current === false) {
@@ -40,6 +41,9 @@ const BookingPage = () => {
             setAddress(data.address);
             setPricePerHour(data.ground.priceperhour);
             extractAvailableDays(data.ground.availability);
+            console.log(data.groundfeedbacks)
+            const feedbacks=data.groundfeedbacks.filter(feedback => feedback.rating!=null)
+            setGroundfeedbacks(feedbacks);
           } else {
             const errorData = await response.json();
             setError(errorData.message);
@@ -196,7 +200,6 @@ const BookingPage = () => {
             body: JSON.stringify({ selectedDate, shopname, groundname }),
             credentials: 'include',
           });
-          console.log('hi'); // Check if this logs
   
           if (response.ok) {
             const data = await response.json();
@@ -314,9 +317,12 @@ const BookingPage = () => {
           dimensions={venueData.grounddimensions ? `Length: ${venueData.grounddimensions.length}m, Width: ${venueData.grounddimensions.width}m` : 'No dimensions available'}
           address={address ? `Address: ${address}` : 'Address not Available'}
           image={venueData.image}
-          rating={venueData.reviews ? (venueData.reviews.reduce((sum, review) => sum + review.rating, 0) / venueData.reviews.length).toFixed(1) : 'No ratings yet'}
-          ratingCount={venueData.reviews ? venueData.reviews.length : 0}
+          rating={ groundfeedbacks && groundfeedbacks.length > 0 
+            ? (groundfeedbacks.reduce((sum, feedback) => sum + (feedback.rating || 0), 0) / groundfeedbacks.length).toFixed(2) 
+            : 'No ratings yet'}
+          ratingCount={groundfeedbacks ? groundfeedbacks.length : 0}
           timing={venueData.availability || []}
+          groundfeedbacks={groundfeedbacks || []}
           facilities={venueData.facilities || []}
           pricePerHour={venueData.priceperhour}
         />
@@ -368,15 +374,28 @@ const BookingPage = () => {
   );
 };
 
-const VenueDetails = ({ name, dimensions, address, image, rating, ratingCount, timing, facilities, pricePerHour }) => {
+const VenueDetails = ({ name, dimensions, address, image, rating, ratingCount, timing,groundfeedbacks, facilities, pricePerHour }) => {
   return (
     <div className="bp-venue-details">
       <h2>{name}</h2>
       <img src={image} alt={`${name}`} className="bp-venue-image" />
-      <p>{dimensions}</p>
-      <p>{address}</p>
-      <p>Price per hour: ₹{pricePerHour}</p>
-      <p>Rating: {rating} ({ratingCount} reviews)</p>
+    <div className="bp-attributes">
+    <div className="bp-row">
+        <span className="bp-attribute">Dimensions:</span>
+        <span className="bp-value">{dimensions}</span>
+      </div>
+      <div className="bp-row">
+        <span className="bp-attribute">Address:</span>
+        <span className="bp-value">{address}</span>
+      </div>
+      <div className="bp-row">
+        <span className="bp-attribute">Price per hour:</span>
+        <span className="bp-value">₹{pricePerHour}</span>
+      </div>
+      <div className="bp-row">
+        <span className="bp-attribute">Rating:</span>
+        <p>{rating} out of 5.00 ({ratingCount} reviews)</p>
+      </div>
       <h3>Facilities</h3>
       <ul>
         {facilities.map((facility, index) => <li key={index}>{facility}</li>)}
@@ -387,6 +406,19 @@ const VenueDetails = ({ name, dimensions, address, image, rating, ratingCount, t
           <li key={index}>{t.day}: {t.times.map(time => `${time.start} - ${time.end}`).join(', ')}</li>
         ))}
       </ul>
+      <h3>Review</h3>
+      <ul>{groundfeedbacks.map((feedback,index)=>(
+        <li key={index}>
+          <ul>
+            <li>{feedback.username}</li>
+            <li>{feedback.feedbackDate}</li>
+          <li>{feedback.rating} out of 5</li>
+          <li>{feedback.review}</li>
+          </ul>
+        </li>
+      ))}
+        </ul>
+    </div>
     </div>
   );
 };

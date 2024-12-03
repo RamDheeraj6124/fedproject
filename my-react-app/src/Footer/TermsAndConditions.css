@@ -1,0 +1,48 @@
+.terms-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    background-color: lightgreen;
+    width: 100vw;
+    min-height: 100vh;
+  }
+  
+  .terms-title {
+    margin-top: 10px;
+    text-align: center;
+    font-size: 2rem;
+    font-family: 'Courier New', Courier, monospace;
+    margin-bottom: 20px;
+    color: #656363;
+  }
+  
+  .terms-content {
+    text-align: left; /* Align text to the left */
+    line-height: 1.6;
+    color: #555;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100vw;
+    min-height: 100vh;
+  }
+  
+  .container1, .container2, .container3, .container4 {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px; /* Add spacing between sections */
+  }
+  
+  .para1, .para2, .para3, .para4, .terms-content p {
+    text-align: left;
+    font-size: 1rem; /* Adjust font size for better readability */
+    margin: 10px 0; /* Add consistent spacing between paragraphs */
+    padding: 0; /* Remove extra padding inside paragraphs */
+  }

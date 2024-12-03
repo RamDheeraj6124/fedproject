@@ -45,6 +45,8 @@ import BadmintonVenue from './BookPage/BadmintonVenue';
 import BasketballVenue from './BookPage/BasketballVenue';
 import Volleyballvenue from './BookPage/VolleyballVenue';
 import HockeyVenue from './BookPage/HockeyVenue';
+import ContactPage from './Footer/ContactPage';
+import QueryMode from './Admin/Queries';
 
 
 
@@ -53,6 +55,7 @@ function App() {
     <Router>
       <div className="App">
         <Routes>
+        <Route path='/Contact' element={<ContactPage/>} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path='/shoplogin' element={<ShopLogin />} />
@@ -91,6 +94,7 @@ function App() {
                  <Route path='Revenuecheck' element={<Revenuecheck />}/>
                  <Route path='BookingList' element={<BookingsList />}/>
                  <Route path='AddSports'   element={<AddSports />}/>
+                 <Route path='Queries' element={<QueryMode />} />
          </Route>
          <Route path='/Learnvolleyball' element={<Slide />} />
           <Route path='/Learnfootball' element={<FootballSlide />} />

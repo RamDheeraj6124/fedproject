@@ -1,0 +1,92 @@
+/* BookingsList container */
+.bookings-list {
+    padding: 20px;
+    background-color: #f7f9fc; /* Light background */
+    font-family: 'Roboto', sans-serif;
+    color: #333; /* Standard text color */
+}
+
+.bookings {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Header styles */
+.bookings-list h2 {
+    font-size: 30px;
+    font-weight: bold;
+    color: #333; /* Primary color for titles */
+    margin-bottom: 20px;
+    text-align: center;
+    padding-right: 60px;
+}
+
+.bookings-list h3 {
+    font-size: 24px;
+    color: #333; /* Primary color for section titles */
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+/* List styles */
+.bookings-list ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 280px;
+}
+
+.bookings-list li {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 10px;
+    transition: transform 0.2s, box-shadow 0.3s;
+    cursor: pointer;
+}
+
+.bookings-list li:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* Text styling for booking details */
+.bookings-list li strong {
+    font-weight: bold;
+    color: #333;
+}
+
+.bookings-list li span {
+    color: #666; /* Light color for less important information */
+}
+
+/* Message styles */
+.bookings-list p {
+    font-size: 16px;
+    color: #888; /* Light color for messages */
+    text-align: center;
+}
+
+/* Loading and error states */
+.bookings-list .loading,
+.bookings-list .error {
+    text-align: center;
+    font-size: 18px;
+    color: #ff4d4d; /* Red for error */
+}
+
+/* Responsive styling */
+@media (max-width: 768px) {
+    .bookings-list h2 {
+        font-size: 28px;
+    }
+
+    .bookings-list h3 {
+        font-size: 20px;
+    }
+
+    .bookings-list li {
+        padding: 10px;
+    }
+}

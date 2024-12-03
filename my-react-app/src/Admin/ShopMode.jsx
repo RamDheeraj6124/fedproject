@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './AdminDashboard.css';
+import './ShopMode.css';
 
 const ShopMode = () => {
     const [username, setUsername] = useState(null);

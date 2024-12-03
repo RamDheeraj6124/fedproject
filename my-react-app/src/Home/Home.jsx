@@ -15,10 +15,15 @@ const Home = () => {
       <Header />
       <SearchSection />
       <FindPlayers />
+      <br />
       <Venue />
+      <br />
       <News1 />
+      <br />
       <PopularSports />
+      <br />
       <BlogSection />
+      <br />
       <Footer />
     </div>
   );

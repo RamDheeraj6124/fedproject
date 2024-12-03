@@ -78,24 +78,25 @@ const SearchSection = () => {
                 {isSearchDropdownVisible && suggestions.length > 0 && (
                     <div className="search-dropdown">
                         {suggestions.map((suggestion, index) => (
+                            <div className='search-dropdown2'>
                             <button 
                                 key={index} 
                                 onClick={() => searchpage(suggestion)} 
                                 className="search-dropdown-item"
                             >
-                                <div>
-                                    {suggestion.groundname}
+                                <div className='dropdownstyle'>
+                                    <h1> {suggestion.groundname} </h1>
                                     <div>
-                                        {suggestion.shopname}, {suggestion.address}
+                                    <p>{suggestion.shopname}, {suggestion.address}</p>
                                     </div>
                                 </div>
                             </button>
+                            </div>
                         ))}
                     </div>
                 )}
             </div>
 
-            {/* Sports Dropdown */}
             <div className="dropdown-menu">
                 <button className="dropdown-button" onClick={toggleDropdown}>
                     <i className="bx bx-cricket-ball"></i>
