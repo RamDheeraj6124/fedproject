@@ -12,5 +12,5 @@
    - **Roll No:** S20220010130  
 4. **O. Uday Kiran**  
    - **Roll No:** S20220010155  
-5. **P. Jashwanth**  
+5. **P. Jaswanth**  
    - **Roll No:** S20220010168 
